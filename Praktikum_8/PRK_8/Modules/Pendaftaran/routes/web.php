@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-
 use Modules\Pendaftaran\Http\Controllers\PendaftaranController;
 
 Route::middleware(['auth', 'role:admin,user'])->group(function () {

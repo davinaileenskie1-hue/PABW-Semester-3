@@ -1,0 +1,23 @@
+[
+  {"name": "composer", "file": "composer.json"},
+  {"name": "user-role", "file": "app/Enums/UserRole.php"},
+  {"name": "user-model", "file": "app/Models/User.php"},
+  {"name": "middleware-role", "file": "app/Http/Middleware/EnsureUserHasRole.php"},
+  {"name": "bootstrap-app", "file": "bootstrap/app.php"},
+  {"name": "seeder", "file": "database/seeders/DatabaseSeeder.php"},
+  {"name": "register-controller", "file": "app/Http/Controllers/Auth/RegisterController.php"},
+  {"name": "buku-controller", "file": "Modules/Buku/app/Http/Controllers/BukuController.php"},
+  {"name": "buku-request", "file": "Modules/Buku/app/Http/Requests/StoreBukuRequest.php"},
+  {"name": "buku-model", "file": "Modules/Buku/app/Models/Buku.php"},
+  {"name": "buku-route", "file": "Modules/Buku/routes/web.php"},
+  {"name": "peminjaman-migration", "file": "Modules/Peminjaman/database/migrations/2026_11_04_111225_create_peminjamans_table.php"},
+  {"name": "peminjaman-bukti-migration", "file": "Modules/Peminjaman/database/migrations/2026_11_04_111226_add_bukti_to_peminjamans_table.php"},
+  {"name": "peminjaman-model", "file": "Modules/Peminjaman/app/Models/Peminjaman.php"},
+  {"name": "peminjaman-request", "file": "Modules/Peminjaman/app/Http/Requests/PeminjamanRequest.php"},
+  {"name": "peminjaman-controller", "file": "Modules/Peminjaman/app/Http/Controllers/PeminjamanController.php"},
+  {"name": "peminjaman-route", "file": "Modules/Peminjaman/routes/web.php"},
+  {"name": "usermgmt-controller", "file": "Modules/UserManagement/app/Http/Controllers/UserManagementController.php"},
+  {"name": "usermgmt-update-request", "file": "Modules/UserManagement/app/Http/Requests/UpdateUserRequest.php"},
+  {"name": "usermgmt-route", "file": "Modules/UserManagement/routes/web.php"},
+  {"name": "dashboard-controller", "file": "app/Http/Controllers/DashboardController.php"}
+]
