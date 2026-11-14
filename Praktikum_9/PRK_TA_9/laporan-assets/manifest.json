@@ -1,0 +1,352 @@
+[
+  {
+    "figure": 1,
+    "kind": "ray",
+    "name": "resolver-halaman-modul-di-resources-js-app-tsx",
+    "file": "ray/01-resolver-halaman-modul-di-resources-js-app-tsx.png",
+    "caption": "Resolver halaman modul di resources/js/app.tsx."
+  },
+  {
+    "figure": 2,
+    "kind": "ray",
+    "name": "migration-yang-menambahkan-kolom-role-pada-tabel",
+    "file": "ray/02-migration-yang-menambahkan-kolom-role-pada-tabel.png",
+    "caption": "Migration yang menambahkan kolom role pada tabel users."
+  },
+  {
+    "figure": 3,
+    "kind": "ray",
+    "name": "enum-userrole-beserta-label-yang-dipakai-di-tamp",
+    "file": "ray/03-enum-userrole-beserta-label-yang-dipakai-di-tamp.png",
+    "caption": "Enum UserRole beserta label yang dipakai di tampilan."
+  },
+  {
+    "figure": 4,
+    "kind": "ray",
+    "name": "cast-role-dan-helper-isadmin-serta-hasrole-pada",
+    "file": "ray/04-cast-role-dan-helper-isadmin-serta-hasrole-pada.png",
+    "caption": "Cast role dan helper isAdmin() serta hasRole() pada model User."
+  },
+  {
+    "figure": 5,
+    "kind": "ray",
+    "name": "middleware-ensureuserhasrole-memeriksa-role-user",
+    "file": "ray/05-middleware-ensureuserhasrole-memeriksa-role-user.png",
+    "caption": "Middleware EnsureUserHasRole memeriksa role user yang sedang login."
+  },
+  {
+    "figure": 6,
+    "kind": "ray",
+    "name": "alias-middleware-role-di-bootstrap-app-php",
+    "file": "ray/06-alias-middleware-role-di-bootstrap-app-php.png",
+    "caption": "Alias middleware role di bootstrap/app.php."
+  },
+  {
+    "figure": 7,
+    "kind": "ray",
+    "name": "route-modul-buku-dengan-pembatasan-role-yang-ber",
+    "file": "ray/07-route-modul-buku-dengan-pembatasan-role-yang-ber.png",
+    "caption": "Route modul Buku dengan pembatasan role yang berbeda untuk baca dan tulis."
+  },
+  {
+    "figure": 8,
+    "kind": "ray",
+    "name": "pencarian-dan-pagination-pada-bukucontroller-ind",
+    "file": "ray/08-pencarian-dan-pagination-pada-bukucontroller-ind.png",
+    "caption": "Pencarian dan pagination pada BukuController@index."
+  },
+  {
+    "figure": 9,
+    "kind": "ray",
+    "name": "bagian-store-dan-destroy-pada-bukucontroller",
+    "file": "ray/09-bagian-store-dan-destroy-pada-bukucontroller.png",
+    "caption": "Bagian store dan destroy pada BukuController."
+  },
+  {
+    "figure": 10,
+    "kind": "ray",
+    "name": "pencarian-dan-pengambilan-data-awal-di-halaman-b",
+    "file": "ray/10-pencarian-dan-pengambilan-data-awal-di-halaman-b.png",
+    "caption": "Pencarian dan pengambilan data awal di halaman Buku."
+  },
+  {
+    "figure": 11,
+    "kind": "ray",
+    "name": "route-admin-users-dengan-middleware-role-admin",
+    "file": "ray/11-route-admin-users-dengan-middleware-role-admin.png",
+    "caption": "Route admin/users dengan middleware role:admin."
+  },
+  {
+    "figure": 12,
+    "kind": "ray",
+    "name": "pencarian-filter-role-dan-transformasi-data-di-u",
+    "file": "ray/12-pencarian-filter-role-dan-transformasi-data-di-u.png",
+    "caption": "Pencarian, filter role, dan transformasi data di UserManagementController@index."
+  },
+  {
+    "figure": 13,
+    "kind": "ray",
+    "name": "pembaruan-password-dan-pengaman-akun-sendiri-di",
+    "file": "ray/13-pembaruan-password-dan-pengaman-akun-sendiri-di.png",
+    "caption": "Pembaruan password dan pengaman akun sendiri di UserManagementController."
+  },
+  {
+    "figure": 14,
+    "kind": "ray",
+    "name": "filter-pencarian-dan-role-di-halaman-usermanagem",
+    "file": "ray/14-filter-pencarian-dan-role-di-halaman-usermanagem.png",
+    "caption": "Filter pencarian dan role di halaman UserManagement."
+  },
+  {
+    "figure": 15,
+    "kind": "ray",
+    "name": "route-modul-peminjaman-untuk-halaman-inertia-dan",
+    "file": "ray/15-route-modul-peminjaman-untuk-halaman-inertia-dan.png",
+    "caption": "Route modul Peminjaman untuk halaman Inertia dan operasi JSON."
+  },
+  {
+    "figure": 16,
+    "kind": "ray",
+    "name": "penyimpanan-data-dan-berkas-bukti-di-peminjamanc",
+    "file": "ray/16-penyimpanan-data-dan-berkas-bukti-di-peminjamanc.png",
+    "caption": "Penyimpanan data dan berkas bukti di PeminjamanController@store."
+  },
+  {
+    "figure": 17,
+    "kind": "ray",
+    "name": "penggantian-berkas-dan-penghapusan-data-di-pemin",
+    "file": "ray/17-penggantian-berkas-dan-penghapusan-data-di-pemin.png",
+    "caption": "Penggantian berkas dan penghapusan data di PeminjamanController."
+  },
+  {
+    "figure": 18,
+    "kind": "ray",
+    "name": "helper-http-untuk-csrf-json-dan-penanganan-error",
+    "file": "ray/18-helper-http-untuk-csrf-json-dan-penanganan-error.png",
+    "caption": "Helper http() untuk CSRF, JSON, dan penanganan error respons."
+  },
+  {
+    "figure": 19,
+    "kind": "ray",
+    "name": "state-loaddata-dan-pencarian-sisi-klien-di-halam",
+    "file": "ray/19-state-loaddata-dan-pencarian-sisi-klien-di-halam.png",
+    "caption": "State, loadData(), dan pencarian sisi klien di halaman Peminjaman."
+  },
+  {
+    "figure": 20,
+    "kind": "ray",
+    "name": "pengiriman-form-peminjaman-dengan-formdata-dan-m",
+    "file": "ray/20-pengiriman-form-peminjaman-dengan-formdata-dan-m.png",
+    "caption": "Pengiriman form Peminjaman dengan FormData dan method spoofing."
+  },
+  {
+    "figure": 21,
+    "kind": "ray",
+    "name": "struktur-tabel-peminjamans-termasuk-kolom-bukti",
+    "file": "ray/21-struktur-tabel-peminjamans-termasuk-kolom-bukti.png",
+    "caption": "Struktur tabel peminjamans, termasuk kolom bukti dan nama_bukti."
+  },
+  {
+    "figure": 22,
+    "kind": "shot",
+    "name": "pesan-validasi-pada-halaman-register-saat-data-b",
+    "file": "shots/01-pesan-validasi-pada-halaman-register-saat-data-b.png",
+    "caption": "Pesan validasi pada halaman register saat data belum lengkap."
+  },
+  {
+    "figure": 23,
+    "kind": "shot",
+    "name": "pesan-error-pada-halaman-login-saat-email-atau-p",
+    "file": "shots/02-pesan-error-pada-halaman-login-saat-email-atau-p.png",
+    "caption": "Pesan error pada halaman login saat email atau password salah."
+  },
+  {
+    "figure": 24,
+    "kind": "shot",
+    "name": "dashboard-admin-dengan-ringkasan-buku-peminjaman",
+    "file": "shots/03-dashboard-admin-dengan-ringkasan-buku-peminjaman.png",
+    "caption": "Dashboard admin dengan ringkasan buku, peminjaman, dan jumlah user."
+  },
+  {
+    "figure": 25,
+    "kind": "shot",
+    "name": "dashboard-user-biasa-tanpa-kartu-jumlah-user-dan",
+    "file": "shots/04-dashboard-user-biasa-tanpa-kartu-jumlah-user-dan.png",
+    "caption": "Dashboard user biasa tanpa kartu jumlah user dan tanpa menu Kelola User."
+  },
+  {
+    "figure": 26,
+    "kind": "shot",
+    "name": "daftar-buku-yang-terlihat-oleh-admin-lengkap-den",
+    "file": "shots/05-daftar-buku-yang-terlihat-oleh-admin-lengkap-den.png",
+    "caption": "Daftar buku yang terlihat oleh admin, lengkap dengan tombol aksi."
+  },
+  {
+    "figure": 27,
+    "kind": "shot",
+    "name": "hasil-pencarian-buku-dengan-kata-kunci-judul",
+    "file": "shots/06-hasil-pencarian-buku-dengan-kata-kunci-judul.png",
+    "caption": "Hasil pencarian buku dengan kata kunci judul."
+  },
+  {
+    "figure": 28,
+    "kind": "shot",
+    "name": "form-tambah-buku-sebelum-diisi",
+    "file": "shots/07-form-tambah-buku-sebelum-diisi.png",
+    "caption": "Form tambah buku sebelum diisi."
+  },
+  {
+    "figure": 29,
+    "kind": "shot",
+    "name": "pesan-validasi-pada-form-tambah-buku",
+    "file": "shots/08-pesan-validasi-pada-form-tambah-buku.png",
+    "caption": "Pesan validasi pada form tambah buku."
+  },
+  {
+    "figure": 30,
+    "kind": "shot",
+    "name": "form-edit-buku-dengan-data-yang-sudah-terisi",
+    "file": "shots/09-form-edit-buku-dengan-data-yang-sudah-terisi.png",
+    "caption": "Form edit buku dengan data yang sudah terisi."
+  },
+  {
+    "figure": 31,
+    "kind": "shot",
+    "name": "dialog-konfirmasi-sebelum-buku-dihapus",
+    "file": "shots/10-dialog-konfirmasi-sebelum-buku-dihapus.png",
+    "caption": "Dialog konfirmasi sebelum buku dihapus."
+  },
+  {
+    "figure": 32,
+    "kind": "shot",
+    "name": "daftar-buku-yang-terlihat-oleh-user-biasa-tanpa",
+    "file": "shots/11-daftar-buku-yang-terlihat-oleh-user-biasa-tanpa.png",
+    "caption": "Daftar buku yang terlihat oleh user biasa, tanpa tombol tambah, edit, atau hapus."
+  },
+  {
+    "figure": 33,
+    "kind": "shot",
+    "name": "daftar-user-dengan-pencarian-filter-role-dan-bad",
+    "file": "shots/12-daftar-user-dengan-pencarian-filter-role-dan-bad.png",
+    "caption": "Daftar user dengan pencarian, filter role, dan badge role."
+  },
+  {
+    "figure": 34,
+    "kind": "shot",
+    "name": "form-tambah-user-dengan-pilihan-role",
+    "file": "shots/13-form-tambah-user-dengan-pilihan-role.png",
+    "caption": "Form tambah user dengan pilihan role."
+  },
+  {
+    "figure": 35,
+    "kind": "shot",
+    "name": "pesan-validasi-pada-form-tambah-user",
+    "file": "shots/14-pesan-validasi-pada-form-tambah-user.png",
+    "caption": "Pesan validasi pada form tambah user."
+  },
+  {
+    "figure": 36,
+    "kind": "shot",
+    "name": "form-edit-user-kolom-password-boleh-dikosongkan",
+    "file": "shots/15-form-edit-user-kolom-password-boleh-dikosongkan.png",
+    "caption": "Form edit user; kolom password boleh dikosongkan."
+  },
+  {
+    "figure": 37,
+    "kind": "shot",
+    "name": "pesan-error-saat-admin-mencoba-menurunkan-role-a",
+    "file": "shots/16-pesan-error-saat-admin-mencoba-menurunkan-role-a.png",
+    "caption": "Pesan error saat admin mencoba menurunkan role akunnya sendiri."
+  },
+  {
+    "figure": 38,
+    "kind": "shot",
+    "name": "halaman-403-saat-user-biasa-membuka-admin-users",
+    "file": "shots/17-halaman-403-saat-user-biasa-membuka-admin-users.png",
+    "caption": "Halaman 403 saat user biasa membuka /admin/users."
+  },
+  {
+    "figure": 39,
+    "kind": "shot",
+    "name": "halaman-peminjaman-dengan-tabel-data-dan-tombol",
+    "file": "shots/18-halaman-peminjaman-dengan-tabel-data-dan-tombol.png",
+    "caption": "Halaman Peminjaman dengan tabel data dan tombol tambah."
+  },
+  {
+    "figure": 40,
+    "kind": "shot",
+    "name": "dialog-tambah-peminjaman-yang-sudah-diisi-dan-be",
+    "file": "shots/19-dialog-tambah-peminjaman-yang-sudah-diisi-dan-be.png",
+    "caption": "Dialog tambah peminjaman yang sudah diisi dan berkas bukti dipilih."
+  },
+  {
+    "figure": 41,
+    "kind": "shot",
+    "name": "pesan-validasi-dari-respons-422-json-saat-field",
+    "file": "shots/20-pesan-validasi-dari-respons-422-json-saat-field.png",
+    "caption": "Pesan validasi dari respons 422 JSON saat field wajib dikosongkan."
+  },
+  {
+    "figure": 42,
+    "kind": "shot",
+    "name": "pesan-validasi-saat-berkas-zip-diunggah-server-h",
+    "file": "shots/21-pesan-validasi-saat-berkas-zip-diunggah-server-h.png",
+    "caption": "Pesan validasi saat berkas ZIP diunggah; server hanya menerima jpg, jpeg, png, dan pdf."
+  },
+  {
+    "figure": 43,
+    "kind": "shot",
+    "name": "pesan-sukses-setelah-data-peminjaman-berhasil-di",
+    "file": "shots/22-pesan-sukses-setelah-data-peminjaman-berhasil-di.png",
+    "caption": "Pesan sukses setelah data peminjaman berhasil disimpan."
+  },
+  {
+    "figure": 44,
+    "kind": "shot",
+    "name": "dialog-edit-peminjaman-dengan-data-lama-dan-pili",
+    "file": "shots/23-dialog-edit-peminjaman-dengan-data-lama-dan-pili.png",
+    "caption": "Dialog edit peminjaman dengan data lama dan pilihan bukti baru."
+  },
+  {
+    "figure": 45,
+    "kind": "shot",
+    "name": "dialog-konfirmasi-sebelum-data-peminjaman-dihapu",
+    "file": "shots/24-dialog-konfirmasi-sebelum-data-peminjaman-dihapu.png",
+    "caption": "Dialog konfirmasi sebelum data peminjaman dihapus."
+  },
+  {
+    "figure": 46,
+    "kind": "shot",
+    "name": "tab-network-di-devtools-saat-halaman-memuat-data",
+    "file": "shots/25-tab-network-di-devtools-saat-halaman-memuat-data.png",
+    "caption": "Tab Network di DevTools saat halaman memuat data dan saat request POST divalidasi."
+  },
+  {
+    "figure": 47,
+    "kind": "shot",
+    "name": "berkas-bukti-dengan-nama-acak-di-storage-app-pub",
+    "file": "shots/26-berkas-bukti-dengan-nama-acak-di-storage-app-pub.png",
+    "caption": "Berkas bukti dengan nama acak di storage/app/public/bukti_peminjaman."
+  },
+  {
+    "figure": 48,
+    "kind": "shot",
+    "name": "kolom-bukti-dan-nama-bukti-pada-tabel-peminjaman",
+    "file": "shots/27-kolom-bukti-dan-nama-bukti-pada-tabel-peminjaman.png",
+    "caption": "Kolom bukti dan nama_bukti pada tabel peminjamans di phpMyAdmin."
+  },
+  {
+    "figure": 49,
+    "kind": "shot",
+    "name": "sebagian-hasil-php-artisan-route-list-except-ven",
+    "file": "shots/28-sebagian-hasil-php-artisan-route-list-except-ven.png",
+    "caption": "Sebagian hasil php artisan route:list --except-vendor untuk route Buku, Peminjaman, dan admin/users."
+  },
+  {
+    "figure": 50,
+    "kind": "shot",
+    "name": "hasil-php-artisan-test-83-tes-lulus-dengan-408-a",
+    "file": "shots/29-hasil-php-artisan-test-83-tes-lulus-dengan-408-a.png",
+    "caption": "Hasil php artisan test: 83 tes lulus dengan 408 assertion."
+  }
+]
