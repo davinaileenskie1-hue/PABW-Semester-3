@@ -1,0 +1,11 @@
+{
+    "name": "TitikSampah",
+    "alias": "titiksampah",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\TitikSampah\\Providers\\TitikSampahServiceProvider"
+    ],
+    "files": []
+}

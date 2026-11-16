@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/titiksampah",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\TitikSampah\\": "app/",
+            "Modules\\TitikSampah\\Database\\Factories\\": "database/factories/",
+            "Modules\\TitikSampah\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\TitikSampah\\Tests\\": "tests/"
+        }
+    }
+}
