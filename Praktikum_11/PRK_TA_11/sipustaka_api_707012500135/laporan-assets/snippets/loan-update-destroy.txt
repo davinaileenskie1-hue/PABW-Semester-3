@@ -1,0 +1,18 @@
+    // PATCH /api/loans/{id} - ubah peminjaman milik sendiri
+    public function update(UpdateLoanRequest $request, int|string $id): JsonResponse
+    {
+        $loan = $this->findOwnedLoan($request, $id);
+        $data = $request->safe()->only(['book_id', 'tanggal_pinjam', 'tanggal_kembali', 'status']);
+
+        $loan->update($data);
+
+        return response()->json($loan->load('book'));
+    }
+
+    // DELETE /api/loans/{id} - hapus peminjaman milik sendiri
+    public function destroy(Request $request, int|string $id): JsonResponse
+    {
+        $this->findOwnedLoan($request, $id)->delete();
+
+        return response()->json(['message' => 'Peminjaman berhasil dihapus']);
+    }

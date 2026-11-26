@@ -1,0 +1,12 @@
+    public function rules(): array
+    {
+        return [
+            'judul' => ['required', 'string', 'max:200'],
+            'penulis' => ['required', 'string', 'max:150'],
+            'penerbit' => ['required', 'string', 'max:150'],
+            'tahun_terbit' => ['required', 'integer', 'min:1900', 'max:'.date('Y')],
+            'stok' => ['required', 'integer', 'min:0'],
+            // Sampul opsional, maksimal 2 MB (2048 KB)
+            'cover' => ['nullable', 'file', 'max:2048', 'mimes:jpg,jpeg,png'],
+        ];
+    }

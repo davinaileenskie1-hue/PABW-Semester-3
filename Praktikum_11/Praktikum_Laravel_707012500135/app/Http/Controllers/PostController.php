@@ -32,7 +32,7 @@ class PostController extends Controller
             $data = [...$data, ...$this->storeFile($request->file('file'))];
         }
 
-        $post = $request->user()->posts()->create($request->validated());
+        $post = $request->user()->posts()->create($data);
         return response()->json($post, 201);
     }
 

@@ -1,0 +1,19 @@
+    public function login(LoginRequest $request): JsonResponse
+    {
+        $data = $request->validated();
+        $user = User::where('email', $data['email'])->first();
+
+        // Cek email dan password
+        if (! $user || ! Hash::check($data['password'], $user->password)) {
+            return response()->json(['message' => 'Email atau password salah'], 401);
+        }
+
+        $token = $user->createToken('api-token')->plainTextToken;
+
+        return response()->json([
+            'message' => 'Login berhasil',
+            'token_type' => 'Bearer',
+            'access_token' => $token,
+            'user' => $user->only(['id', 'name', 'email']),
+        ]);
+    }

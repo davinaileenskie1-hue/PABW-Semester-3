@@ -1,0 +1,3859 @@
+{
+    "info": {
+        "_postman_id": "b7c2a4d0-7070-1250-0135-sipustaka01",
+        "name": "SiPustaka API - 707012500135",
+        "description": "Collection pengujian REST API SiPustaka (Tugas Praktikum 11 No. 1).\n\nUrutan pakai: jalankan folder 1 (Auth) lebih dulu agar {{token}} dan {{token_andi}} terisi otomatis, baru folder 2, 3, dan 4.\n\nSetiap request sudah menyimpan contoh response hasil pengujian (klik nama request lalu pilih 'Example' di kanan atas untuk melihat status code dan body tanpa harus Send).",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://localhost:8000/api"
+        },
+        {
+            "key": "token",
+            "value": ""
+        },
+        {
+            "key": "token_andi",
+            "value": ""
+        },
+        {
+            "key": "book_id",
+            "value": "1"
+        },
+        {
+            "key": "loan_id",
+            "value": "1"
+        }
+    ],
+    "item": [
+        {
+            "name": "1. Auth",
+            "item": [
+                {
+                    "name": "Register Budi (201)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 201 Created', function () {",
+                                    "    pm.response.to.have.status(201);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/auth/register",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "register"
+                            ]
+                        },
+                        "description": "Registrasi akun pertama. Password disimpan dalam bentuk hash.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"Budi Santoso\",\n    \"email\": \"budi@example.com\",\n    \"password\": \"praktikum123\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Register Budi (201)",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/auth/register",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "auth",
+                                        "register"
+                                    ]
+                                },
+                                "description": "Registrasi akun pertama. Password disimpan dalam bentuk hash.",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"name\": \"Budi Santoso\",\n    \"email\": \"budi@example.com\",\n    \"password\": \"praktikum123\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Created",
+                            "code": 201,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"message\":\"Registrasi berhasil\",\"user\":{\"id\":1,\"name\":\"Budi Santoso\",\"email\":\"budi@example.com\"}}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Register Andi (201)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 201 Created', function () {",
+                                    "    pm.response.to.have.status(201);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/auth/register",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "register"
+                            ]
+                        },
+                        "description": "Registrasi akun kedua, dipakai untuk menguji kepemilikan data (403).",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"Andi Pratama\",\n    \"email\": \"andi@example.com\",\n    \"password\": \"praktikum123\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Register Andi (201)",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/auth/register",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "auth",
+                                        "register"
+                                    ]
+                                },
+                                "description": "Registrasi akun kedua, dipakai untuk menguji kepemilikan data (403).",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"name\": \"Andi Pratama\",\n    \"email\": \"andi@example.com\",\n    \"password\": \"praktikum123\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Created",
+                            "code": 201,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"message\":\"Registrasi berhasil\",\"user\":{\"id\":2,\"name\":\"Andi Pratama\",\"email\":\"andi@example.com\"}}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Register email duplikat (409)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 409 Conflict', function () {",
+                                    "    pm.response.to.have.status(409);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/auth/register",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "register"
+                            ]
+                        },
+                        "description": "Email yang sama tidak boleh didaftarkan dua kali.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"Budi Santoso\",\n    \"email\": \"budi@example.com\",\n    \"password\": \"praktikum123\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Register email duplikat (409)",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/auth/register",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "auth",
+                                        "register"
+                                    ]
+                                },
+                                "description": "Email yang sama tidak boleh didaftarkan dua kali.",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"name\": \"Budi Santoso\",\n    \"email\": \"budi@example.com\",\n    \"password\": \"praktikum123\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Conflict",
+                            "code": 409,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"message\":\"Email sudah terdaftar\"}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Register validasi gagal (422)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 422 Unprocessable Content', function () {",
+                                    "    pm.response.to.have.status(422);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/auth/register",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "register"
+                            ]
+                        },
+                        "description": "Nama kosong dan password kurang dari 8 karakter ditolak Form Request.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"\",\n    \"email\": \"bukan-email\",\n    \"password\": \"123\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Register validasi gagal (422)",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/auth/register",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "auth",
+                                        "register"
+                                    ]
+                                },
+                                "description": "Nama kosong dan password kurang dari 8 karakter ditolak Form Request.",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"name\": \"\",\n    \"email\": \"bukan-email\",\n    \"password\": \"123\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Unprocessable Content",
+                            "code": 422,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"message\":\"The name field is required. (and 2 more errors)\",\"errors\":{\"name\":[\"The name field is required.\"],\"email\":[\"The email field must be a valid email address.\"],\"password\":[\"The password field must be at least 8 characters.\"]}}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Login Budi (200) + simpan token",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 200 OK', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});",
+                                    "if (pm.response.code === 200) {",
+                                    "    const data = pm.response.json();",
+                                    "    pm.collectionVariables.set('token', String(data.access_token));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/auth/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "login"
+                            ]
+                        },
+                        "description": "Login berhasil mengembalikan access_token. Token disimpan otomatis ke variabel {{token}}.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"budi@example.com\",\n    \"password\": \"praktikum123\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Login Budi (200) + simpan token",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/auth/login",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "auth",
+                                        "login"
+                                    ]
+                                },
+                                "description": "Login berhasil mengembalikan access_token. Token disimpan otomatis ke variabel {{token}}.",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"email\": \"budi@example.com\",\n    \"password\": \"praktikum123\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"message\":\"Login berhasil\",\"token_type\":\"Bearer\",\"access_token\":\"1|00Xq6OkniBsedMlIDkh0aBdPGLU4iUPylUtnPFc701f64fc1\",\"user\":{\"id\":1,\"name\":\"Budi Santoso\",\"email\":\"budi@example.com\"}}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Login Andi (200) + simpan token",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 200 OK', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});",
+                                    "if (pm.response.code === 200) {",
+                                    "    const data = pm.response.json();",
+                                    "    pm.collectionVariables.set('token_andi', String(data.access_token));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/auth/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "login"
+                            ]
+                        },
+                        "description": "Token akun kedua disimpan ke variabel {{token_andi}}.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"andi@example.com\",\n    \"password\": \"praktikum123\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Login Andi (200) + simpan token",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/auth/login",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "auth",
+                                        "login"
+                                    ]
+                                },
+                                "description": "Token akun kedua disimpan ke variabel {{token_andi}}.",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"email\": \"andi@example.com\",\n    \"password\": \"praktikum123\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"message\":\"Login berhasil\",\"token_type\":\"Bearer\",\"access_token\":\"2|fkplwFD8CMxUTqa0S8Opbq2KNn3KXFUDE8yYlqxp87cbdbc0\",\"user\":{\"id\":2,\"name\":\"Andi Pratama\",\"email\":\"andi@example.com\"}}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Login password salah (401)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 401 Unauthorized', function () {",
+                                    "    pm.response.to.have.status(401);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/auth/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "login"
+                            ]
+                        },
+                        "description": "Password salah menghasilkan 401 Unauthorized.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"budi@example.com\",\n    \"password\": \"salahbanget\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Login password salah (401)",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/auth/login",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "auth",
+                                        "login"
+                                    ]
+                                },
+                                "description": "Password salah menghasilkan 401 Unauthorized.",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"email\": \"budi@example.com\",\n    \"password\": \"salahbanget\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Unauthorized",
+                            "code": 401,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"message\":\"Email atau password salah\"}"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "2. Buku (Books)",
+            "item": [
+                {
+                    "name": "Daftar buku tanpa token (200)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 200 OK', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/books",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "books"
+                            ]
+                        },
+                        "description": "Melihat daftar buku boleh tanpa login."
+                    },
+                    "response": [
+                        {
+                            "name": "Daftar buku tanpa token (200)",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/books",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "books"
+                                    ]
+                                },
+                                "description": "Melihat daftar buku boleh tanpa login."
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "[]"
+                        }
+                    ]
+                },
+                {
+                    "name": "Tambah buku tanpa token (401)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 401 Unauthorized', function () {",
+                                    "    pm.response.to.have.status(401);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/books",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "books"
+                            ]
+                        },
+                        "description": "Menambah buku wajib membawa token Sanctum.",
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "judul",
+                                    "type": "text",
+                                    "value": "Buku Tanpa Token"
+                                },
+                                {
+                                    "key": "penulis",
+                                    "type": "text",
+                                    "value": "Davin"
+                                },
+                                {
+                                    "key": "penerbit",
+                                    "type": "text",
+                                    "value": "Informatika"
+                                },
+                                {
+                                    "key": "tahun_terbit",
+                                    "type": "text",
+                                    "value": "2023"
+                                },
+                                {
+                                    "key": "stok",
+                                    "type": "text",
+                                    "value": "1"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Tambah buku tanpa token (401)",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/books",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "books"
+                                    ]
+                                },
+                                "description": "Menambah buku wajib membawa token Sanctum.",
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "judul",
+                                            "type": "text",
+                                            "value": "Buku Tanpa Token"
+                                        },
+                                        {
+                                            "key": "penulis",
+                                            "type": "text",
+                                            "value": "Davin"
+                                        },
+                                        {
+                                            "key": "penerbit",
+                                            "type": "text",
+                                            "value": "Informatika"
+                                        },
+                                        {
+                                            "key": "tahun_terbit",
+                                            "type": "text",
+                                            "value": "2023"
+                                        },
+                                        {
+                                            "key": "stok",
+                                            "type": "text",
+                                            "value": "1"
+                                        }
+                                    ]
+                                }
+                            },
+                            "status": "Unauthorized",
+                            "code": 401,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"message\":\"Unauthenticated.\"}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Tambah buku + sampul (201)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 201 Created', function () {",
+                                    "    pm.response.to.have.status(201);",
+                                    "});",
+                                    "if (pm.response.code === 201) {",
+                                    "    const data = pm.response.json();",
+                                    "    pm.collectionVariables.set('book_id', String(data.id));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/books",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "books"
+                            ]
+                        },
+                        "description": "Format form-data: field teks + field File 'cover'. Sampul disimpan di storage/app/private/covers.",
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "judul",
+                                    "type": "text",
+                                    "value": "Basis Data Lanjutan"
+                                },
+                                {
+                                    "key": "penulis",
+                                    "type": "text",
+                                    "value": "Abraham Silberschatz"
+                                },
+                                {
+                                    "key": "penerbit",
+                                    "type": "text",
+                                    "value": "Andi Publisher"
+                                },
+                                {
+                                    "key": "tahun_terbit",
+                                    "type": "text",
+                                    "value": "2019"
+                                },
+                                {
+                                    "key": "stok",
+                                    "type": "text",
+                                    "value": "3"
+                                },
+                                {
+                                    "key": "cover",
+                                    "type": "file",
+                                    "src": "D:/xampp/htdocs/PABW/Praktikum_11/PRK_TA_11/sipustaka_api_707012500135/postman/fixtures/cover_buku.png"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Tambah buku + sampul (201)",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/books",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "books"
+                                    ]
+                                },
+                                "description": "Format form-data: field teks + field File 'cover'. Sampul disimpan di storage/app/private/covers.",
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "judul",
+                                            "type": "text",
+                                            "value": "Basis Data Lanjutan"
+                                        },
+                                        {
+                                            "key": "penulis",
+                                            "type": "text",
+                                            "value": "Abraham Silberschatz"
+                                        },
+                                        {
+                                            "key": "penerbit",
+                                            "type": "text",
+                                            "value": "Andi Publisher"
+                                        },
+                                        {
+                                            "key": "tahun_terbit",
+                                            "type": "text",
+                                            "value": "2019"
+                                        },
+                                        {
+                                            "key": "stok",
+                                            "type": "text",
+                                            "value": "3"
+                                        },
+                                        {
+                                            "key": "cover",
+                                            "type": "file",
+                                            "src": "D:/xampp/htdocs/PABW/Praktikum_11/PRK_TA_11/sipustaka_api_707012500135/postman/fixtures/cover_buku.png"
+                                        }
+                                    ]
+                                }
+                            },
+                            "status": "Created",
+                            "code": 201,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"judul\":\"Basis Data Lanjutan\",\"penulis\":\"Abraham Silberschatz\",\"penerbit\":\"Andi Publisher\",\"tahun_terbit\":2019,\"stok\":3,\"cover_name\":\"cover_buku.png\",\"updated_at\":\"2026-11-25T09:39:04.000000Z\",\"created_at\":\"2026-11-25T09:39:04.000000Z\",\"id\":1,\"cover_url\":\"http:\\/\\/127.0.0.1:8000\\/api\\/books\\/1\\/cover\"}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Tambah buku tanpa sampul (201)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 201 Created', function () {",
+                                    "    pm.response.to.have.status(201);",
+                                    "});",
+                                    "if (pm.response.code === 201) {",
+                                    "    const data = pm.response.json();",
+                                    "    pm.collectionVariables.set('book_no_cover_id', String(data.id));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/books",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "books"
+                            ]
+                        },
+                        "description": "Sampul bersifat opsional. cover_url bernilai null bila tidak ada lampiran.",
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "judul",
+                                    "type": "text",
+                                    "value": "Algoritma dan Struktur Data"
+                                },
+                                {
+                                    "key": "penulis",
+                                    "type": "text",
+                                    "value": "Rinaldi Munir"
+                                },
+                                {
+                                    "key": "penerbit",
+                                    "type": "text",
+                                    "value": "Informatika"
+                                },
+                                {
+                                    "key": "tahun_terbit",
+                                    "type": "text",
+                                    "value": "2016"
+                                },
+                                {
+                                    "key": "stok",
+                                    "type": "text",
+                                    "value": "4"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Tambah buku tanpa sampul (201)",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/books",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "books"
+                                    ]
+                                },
+                                "description": "Sampul bersifat opsional. cover_url bernilai null bila tidak ada lampiran.",
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "judul",
+                                            "type": "text",
+                                            "value": "Algoritma dan Struktur Data"
+                                        },
+                                        {
+                                            "key": "penulis",
+                                            "type": "text",
+                                            "value": "Rinaldi Munir"
+                                        },
+                                        {
+                                            "key": "penerbit",
+                                            "type": "text",
+                                            "value": "Informatika"
+                                        },
+                                        {
+                                            "key": "tahun_terbit",
+                                            "type": "text",
+                                            "value": "2016"
+                                        },
+                                        {
+                                            "key": "stok",
+                                            "type": "text",
+                                            "value": "4"
+                                        }
+                                    ]
+                                }
+                            },
+                            "status": "Created",
+                            "code": 201,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"judul\":\"Algoritma dan Struktur Data\",\"penulis\":\"Rinaldi Munir\",\"penerbit\":\"Informatika\",\"tahun_terbit\":2016,\"stok\":4,\"updated_at\":\"2026-11-25T09:39:04.000000Z\",\"created_at\":\"2026-11-25T09:39:04.000000Z\",\"id\":2,\"cover_url\":null}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Detail buku (200)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 200 OK', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/books/{{book_id}}",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "books",
+                                "{{book_id}}"
+                            ]
+                        },
+                        "description": "Mengambil satu buku berdasarkan id. Memuat cover_url hasil accessor."
+                    },
+                    "response": [
+                        {
+                            "name": "Detail buku (200)",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/books/{{book_id}}",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "books",
+                                        "{{book_id}}"
+                                    ]
+                                },
+                                "description": "Mengambil satu buku berdasarkan id. Memuat cover_url hasil accessor."
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"id\":1,\"judul\":\"Basis Data Lanjutan\",\"penulis\":\"Abraham Silberschatz\",\"penerbit\":\"Andi Publisher\",\"tahun_terbit\":2019,\"stok\":3,\"cover_name\":\"cover_buku.png\",\"created_at\":\"2026-11-25T09:39:04.000000Z\",\"updated_at\":\"2026-11-25T09:39:04.000000Z\",\"cover_url\":\"http:\\/\\/127.0.0.1:8000\\/api\\/books\\/1\\/cover\"}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Validasi stok berisi huruf (422)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 422 Unprocessable Content', function () {",
+                                    "    pm.response.to.have.status(422);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/books",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "books"
+                            ]
+                        },
+                        "description": "Aturan integer menolak stok berupa huruf.",
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "judul",
+                                    "type": "text",
+                                    "value": "Buku Stok Salah"
+                                },
+                                {
+                                    "key": "penulis",
+                                    "type": "text",
+                                    "value": "Davin"
+                                },
+                                {
+                                    "key": "penerbit",
+                                    "type": "text",
+                                    "value": "Informatika"
+                                },
+                                {
+                                    "key": "tahun_terbit",
+                                    "type": "text",
+                                    "value": "2021"
+                                },
+                                {
+                                    "key": "stok",
+                                    "type": "text",
+                                    "value": "abc"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Validasi stok berisi huruf (422)",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/books",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "books"
+                                    ]
+                                },
+                                "description": "Aturan integer menolak stok berupa huruf.",
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "judul",
+                                            "type": "text",
+                                            "value": "Buku Stok Salah"
+                                        },
+                                        {
+                                            "key": "penulis",
+                                            "type": "text",
+                                            "value": "Davin"
+                                        },
+                                        {
+                                            "key": "penerbit",
+                                            "type": "text",
+                                            "value": "Informatika"
+                                        },
+                                        {
+                                            "key": "tahun_terbit",
+                                            "type": "text",
+                                            "value": "2021"
+                                        },
+                                        {
+                                            "key": "stok",
+                                            "type": "text",
+                                            "value": "abc"
+                                        }
+                                    ]
+                                }
+                            },
+                            "status": "Unprocessable Content",
+                            "code": 422,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"message\":\"Stok harus berupa angka.\",\"errors\":{\"stok\":[\"Stok harus berupa angka.\"]}}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Validasi field kosong (422)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 422 Unprocessable Content', function () {",
+                                    "    pm.response.to.have.status(422);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/books",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "books"
+                            ]
+                        },
+                        "description": "Field wajib yang tidak dikirim ditolak dengan pesan per field.",
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "judul",
+                                    "type": "text",
+                                    "value": "Hanya Judul Saja"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Validasi field kosong (422)",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/books",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "books"
+                                    ]
+                                },
+                                "description": "Field wajib yang tidak dikirim ditolak dengan pesan per field.",
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "judul",
+                                            "type": "text",
+                                            "value": "Hanya Judul Saja"
+                                        }
+                                    ]
+                                }
+                            },
+                            "status": "Unprocessable Content",
+                            "code": 422,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"message\":\"Nama penulis wajib diisi. (and 3 more errors)\",\"errors\":{\"penulis\":[\"Nama penulis wajib diisi.\"],\"penerbit\":[\"Nama penerbit wajib diisi.\"],\"tahun_terbit\":[\"Tahun terbit wajib diisi.\"],\"stok\":[\"Stok wajib diisi.\"]}}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Format sampul salah (422)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 422 Unprocessable Content', function () {",
+                                    "    pm.response.to.have.status(422);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/books",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "books"
+                            ]
+                        },
+                        "description": "Berkas .ino tidak termasuk aturan mimes:jpg,jpeg,png.",
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "judul",
+                                    "type": "text",
+                                    "value": "Arduino"
+                                },
+                                {
+                                    "key": "penulis",
+                                    "type": "text",
+                                    "value": "Davin"
+                                },
+                                {
+                                    "key": "penerbit",
+                                    "type": "text",
+                                    "value": "Informatika"
+                                },
+                                {
+                                    "key": "tahun_terbit",
+                                    "type": "text",
+                                    "value": "2021"
+                                },
+                                {
+                                    "key": "stok",
+                                    "type": "text",
+                                    "value": "2"
+                                },
+                                {
+                                    "key": "cover",
+                                    "type": "file",
+                                    "src": "D:/xampp/htdocs/PABW/Praktikum_11/PRK_TA_11/sipustaka_api_707012500135/postman/fixtures/Arduino.ino"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Format sampul salah (422)",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/books",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "books"
+                                    ]
+                                },
+                                "description": "Berkas .ino tidak termasuk aturan mimes:jpg,jpeg,png.",
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "judul",
+                                            "type": "text",
+                                            "value": "Arduino"
+                                        },
+                                        {
+                                            "key": "penulis",
+                                            "type": "text",
+                                            "value": "Davin"
+                                        },
+                                        {
+                                            "key": "penerbit",
+                                            "type": "text",
+                                            "value": "Informatika"
+                                        },
+                                        {
+                                            "key": "tahun_terbit",
+                                            "type": "text",
+                                            "value": "2021"
+                                        },
+                                        {
+                                            "key": "stok",
+                                            "type": "text",
+                                            "value": "2"
+                                        },
+                                        {
+                                            "key": "cover",
+                                            "type": "file",
+                                            "src": "D:/xampp/htdocs/PABW/Praktikum_11/PRK_TA_11/sipustaka_api_707012500135/postman/fixtures/Arduino.ino"
+                                        }
+                                    ]
+                                }
+                            },
+                            "status": "Unprocessable Content",
+                            "code": 422,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"message\":\"Format sampul harus jpg, jpeg, atau png.\",\"errors\":{\"cover\":[\"Format sampul harus jpg, jpeg, atau png.\"]}}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Sampul lebih dari 2 MB (422)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 422 Unprocessable Content', function () {",
+                                    "    pm.response.to.have.status(422);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/books",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "books"
+                            ]
+                        },
+                        "description": "Aturan max:2048 menolak berkas berukuran lebih dari 2 MB.",
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "judul",
+                                    "type": "text",
+                                    "value": "Sampul Kebesaran"
+                                },
+                                {
+                                    "key": "penulis",
+                                    "type": "text",
+                                    "value": "Davin"
+                                },
+                                {
+                                    "key": "penerbit",
+                                    "type": "text",
+                                    "value": "Informatika"
+                                },
+                                {
+                                    "key": "tahun_terbit",
+                                    "type": "text",
+                                    "value": "2021"
+                                },
+                                {
+                                    "key": "stok",
+                                    "type": "text",
+                                    "value": "2"
+                                },
+                                {
+                                    "key": "cover",
+                                    "type": "file",
+                                    "src": "D:/xampp/htdocs/PABW/Praktikum_11/PRK_TA_11/sipustaka_api_707012500135/postman/fixtures/cover_besar.png"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Sampul lebih dari 2 MB (422)",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/books",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "books"
+                                    ]
+                                },
+                                "description": "Aturan max:2048 menolak berkas berukuran lebih dari 2 MB.",
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "judul",
+                                            "type": "text",
+                                            "value": "Sampul Kebesaran"
+                                        },
+                                        {
+                                            "key": "penulis",
+                                            "type": "text",
+                                            "value": "Davin"
+                                        },
+                                        {
+                                            "key": "penerbit",
+                                            "type": "text",
+                                            "value": "Informatika"
+                                        },
+                                        {
+                                            "key": "tahun_terbit",
+                                            "type": "text",
+                                            "value": "2021"
+                                        },
+                                        {
+                                            "key": "stok",
+                                            "type": "text",
+                                            "value": "2"
+                                        },
+                                        {
+                                            "key": "cover",
+                                            "type": "file",
+                                            "src": "D:/xampp/htdocs/PABW/Praktikum_11/PRK_TA_11/sipustaka_api_707012500135/postman/fixtures/cover_besar.png"
+                                        }
+                                    ]
+                                }
+                            },
+                            "status": "Unprocessable Content",
+                            "code": 422,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"message\":\"Ukuran sampul maksimal 2 MB.\",\"errors\":{\"cover\":[\"Ukuran sampul maksimal 2 MB.\"]}}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Ubah buku + ganti sampul (200)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 200 OK', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/books/{{book_id}}",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "books",
+                                "{{book_id}}"
+                            ]
+                        },
+                        "description": "Method spoofing: POST + _method=PATCH agar PHP membaca file. Sampul lama otomatis terhapus.",
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "_method",
+                                    "type": "text",
+                                    "value": "PATCH"
+                                },
+                                {
+                                    "key": "judul",
+                                    "type": "text",
+                                    "value": "Basis Data Lanjutan (Edisi 2)"
+                                },
+                                {
+                                    "key": "stok",
+                                    "type": "text",
+                                    "value": "7"
+                                },
+                                {
+                                    "key": "cover",
+                                    "type": "file",
+                                    "src": "D:/xampp/htdocs/PABW/Praktikum_11/PRK_TA_11/sipustaka_api_707012500135/postman/fixtures/cover2.jpg"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Ubah buku + ganti sampul (200)",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/books/{{book_id}}",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "books",
+                                        "{{book_id}}"
+                                    ]
+                                },
+                                "description": "Method spoofing: POST + _method=PATCH agar PHP membaca file. Sampul lama otomatis terhapus.",
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "_method",
+                                            "type": "text",
+                                            "value": "PATCH"
+                                        },
+                                        {
+                                            "key": "judul",
+                                            "type": "text",
+                                            "value": "Basis Data Lanjutan (Edisi 2)"
+                                        },
+                                        {
+                                            "key": "stok",
+                                            "type": "text",
+                                            "value": "7"
+                                        },
+                                        {
+                                            "key": "cover",
+                                            "type": "file",
+                                            "src": "D:/xampp/htdocs/PABW/Praktikum_11/PRK_TA_11/sipustaka_api_707012500135/postman/fixtures/cover2.jpg"
+                                        }
+                                    ]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"id\":1,\"judul\":\"Basis Data Lanjutan (Edisi 2)\",\"penulis\":\"Abraham Silberschatz\",\"penerbit\":\"Andi Publisher\",\"tahun_terbit\":2019,\"stok\":7,\"cover_name\":\"cover2.jpg\",\"created_at\":\"2026-11-25T09:39:04.000000Z\",\"updated_at\":\"2026-11-25T09:39:06.000000Z\",\"cover_url\":\"http:\\/\\/127.0.0.1:8000\\/api\\/books\\/1\\/cover\"}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Ubah stok tanpa ganti sampul (200)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 200 OK', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/books/{{book_id}}",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "books",
+                                "{{book_id}}"
+                            ]
+                        },
+                        "description": "PATCH JSON biasa, hanya mengubah stok. Sampul tetap.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"stok\": 9\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Ubah stok tanpa ganti sampul (200)",
+                            "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/books/{{book_id}}",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "books",
+                                        "{{book_id}}"
+                                    ]
+                                },
+                                "description": "PATCH JSON biasa, hanya mengubah stok. Sampul tetap.",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"stok\": 9\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"id\":1,\"judul\":\"Basis Data Lanjutan (Edisi 2)\",\"penulis\":\"Abraham Silberschatz\",\"penerbit\":\"Andi Publisher\",\"tahun_terbit\":2019,\"stok\":9,\"cover_name\":\"cover2.jpg\",\"created_at\":\"2026-11-25T09:39:04.000000Z\",\"updated_at\":\"2026-11-25T09:39:06.000000Z\",\"cover_url\":\"http:\\/\\/127.0.0.1:8000\\/api\\/books\\/1\\/cover\"}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Buka sampul buku (200)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 200 OK', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/books/{{book_id}}/cover",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "books",
+                                "{{book_id}}",
+                                "cover"
+                            ]
+                        },
+                        "description": "Endpoint publik, mengembalikan berkas gambar (inline). Jalankan ulang dengan tombol Send."
+                    }
+                },
+                {
+                    "name": "Sampul buku tanpa lampiran (404)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 404 Not Found', function () {",
+                                    "    pm.response.to.have.status(404);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/books/{{book_no_cover_id}}/cover",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "books",
+                                "{{book_no_cover_id}}",
+                                "cover"
+                            ]
+                        },
+                        "description": "Buku yang tidak punya sampul mengembalikan 404."
+                    },
+                    "response": [
+                        {
+                            "name": "Sampul buku tanpa lampiran (404)",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/books/{{book_no_cover_id}}/cover",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "books",
+                                        "{{book_no_cover_id}}",
+                                        "cover"
+                                    ]
+                                },
+                                "description": "Buku yang tidak punya sampul mengembalikan 404."
+                            },
+                            "status": "Not Found",
+                            "code": 404,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\n    \"message\": \"Sampul tidak ditemukan\"\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Buku tidak ditemukan (404)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 404 Not Found', function () {",
+                                    "    pm.response.to.have.status(404);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/books/9999",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "books",
+                                "9999"
+                            ]
+                        },
+                        "description": "findBook() memanggil abort(404) bila id tidak ada."
+                    },
+                    "response": [
+                        {
+                            "name": "Buku tidak ditemukan (404)",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/books/9999",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "books",
+                                        "9999"
+                                    ]
+                                },
+                                "description": "findBook() memanggil abort(404) bila id tidak ada."
+                            },
+                            "status": "Not Found",
+                            "code": 404,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\n    \"message\": \"Buku tidak ditemukan\"\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Hapus sampul saja (200)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 200 OK', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/books/{{book_id}}",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "books",
+                                "{{book_id}}"
+                            ]
+                        },
+                        "description": "Field remove_cover=true menghapus lampiran, cover_url menjadi null.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"remove_cover\": true\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Hapus sampul saja (200)",
+                            "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/books/{{book_id}}",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "books",
+                                        "{{book_id}}"
+                                    ]
+                                },
+                                "description": "Field remove_cover=true menghapus lampiran, cover_url menjadi null.",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"remove_cover\": true\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"id\":1,\"judul\":\"Basis Data Lanjutan (Edisi 2)\",\"penulis\":\"Abraham Silberschatz\",\"penerbit\":\"Andi Publisher\",\"tahun_terbit\":2019,\"stok\":9,\"cover_name\":null,\"created_at\":\"2026-11-25T09:39:04.000000Z\",\"updated_at\":\"2026-11-25T09:39:07.000000Z\",\"cover_url\":null}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Hapus buku tanpa token (401)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 401 Unauthorized', function () {",
+                                    "    pm.response.to.have.status(401);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/books/{{book_no_cover_id}}",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "books",
+                                "{{book_no_cover_id}}"
+                            ]
+                        },
+                        "description": "Menghapus buku juga wajib membawa token."
+                    },
+                    "response": [
+                        {
+                            "name": "Hapus buku tanpa token (401)",
+                            "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/books/{{book_no_cover_id}}",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "books",
+                                        "{{book_no_cover_id}}"
+                                    ]
+                                },
+                                "description": "Menghapus buku juga wajib membawa token."
+                            },
+                            "status": "Unauthorized",
+                            "code": 401,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"message\":\"Unauthenticated.\"}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Hapus buku (200)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 200 OK', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/books/{{book_no_cover_id}}",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "books",
+                                "{{book_no_cover_id}}"
+                            ]
+                        },
+                        "description": "Buku dihapus bersama berkas sampulnya (kalau ada)."
+                    },
+                    "response": [
+                        {
+                            "name": "Hapus buku (200)",
+                            "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/books/{{book_no_cover_id}}",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "books",
+                                        "{{book_no_cover_id}}"
+                                    ]
+                                },
+                                "description": "Buku dihapus bersama berkas sampulnya (kalau ada)."
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"message\":\"Buku berhasil dihapus\"}"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "3. Peminjaman (Loans)",
+            "item": [
+                {
+                    "name": "Daftar peminjaman tanpa token (401)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 401 Unauthorized', function () {",
+                                    "    pm.response.to.have.status(401);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/loans",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "loans"
+                            ]
+                        },
+                        "description": "Seluruh endpoint peminjaman wajib login."
+                    },
+                    "response": [
+                        {
+                            "name": "Daftar peminjaman tanpa token (401)",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/loans",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "loans"
+                                    ]
+                                },
+                                "description": "Seluruh endpoint peminjaman wajib login."
+                            },
+                            "status": "Unauthorized",
+                            "code": 401,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"message\":\"Unauthenticated.\"}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Catat peminjaman (201)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 201 Created', function () {",
+                                    "    pm.response.to.have.status(201);",
+                                    "});",
+                                    "if (pm.response.code === 201) {",
+                                    "    const data = pm.response.json();",
+                                    "    pm.collectionVariables.set('loan_id', String(data.id));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/loans",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "loans"
+                            ]
+                        },
+                        "description": "user_id terisi otomatis dari pengguna yang login; relasi book ikut dimuat.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"book_id\": \"{{book_id}}\",\n    \"tanggal_pinjam\": \"2026-11-25\",\n    \"status\": \"Dipinjam\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Catat peminjaman (201)",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/loans",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "loans"
+                                    ]
+                                },
+                                "description": "user_id terisi otomatis dari pengguna yang login; relasi book ikut dimuat.",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"book_id\": \"{{book_id}}\",\n    \"tanggal_pinjam\": \"2026-11-25\",\n    \"status\": \"Dipinjam\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Created",
+                            "code": 201,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"book_id\":\"1\",\"tanggal_pinjam\":\"2026-11-25T00:00:00.000000Z\",\"status\":\"Dipinjam\",\"user_id\":1,\"updated_at\":\"2026-11-25T09:39:08.000000Z\",\"created_at\":\"2026-11-25T09:39:08.000000Z\",\"id\":1,\"book\":{\"id\":1,\"judul\":\"Basis Data Lanjutan (Edisi 2)\",\"penulis\":\"Abraham Silberschatz\",\"penerbit\":\"Andi Publisher\",\"tahun_terbit\":2019,\"stok\":9,\"cover_name\":null,\"created_at\":\"2026-11-25T09:39:04.000000Z\",\"updated_at\":\"2026-11-25T09:39:07.000000Z\",\"cover_url\":null}}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Validasi peminjaman kosong (422)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 422 Unprocessable Content', function () {",
+                                    "    pm.response.to.have.status(422);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/loans",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "loans"
+                            ]
+                        },
+                        "description": "book_id dan tanggal_pinjam wajib diisi.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Validasi peminjaman kosong (422)",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/loans",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "loans"
+                                    ]
+                                },
+                                "description": "book_id dan tanggal_pinjam wajib diisi.",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Unprocessable Content",
+                            "code": 422,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"message\":\"Buku wajib dipilih. (and 1 more error)\",\"errors\":{\"book_id\":[\"Buku wajib dipilih.\"],\"tanggal_pinjam\":[\"Tanggal pinjam wajib diisi.\"]}}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Validasi book_id tidak ada (422)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 422 Unprocessable Content', function () {",
+                                    "    pm.response.to.have.status(422);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/loans",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "loans"
+                            ]
+                        },
+                        "description": "Aturan exists:books,id menolak id buku yang tidak terdaftar.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"book_id\": 999,\n    \"tanggal_pinjam\": \"2026-11-25\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Validasi book_id tidak ada (422)",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/loans",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "loans"
+                                    ]
+                                },
+                                "description": "Aturan exists:books,id menolak id buku yang tidak terdaftar.",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"book_id\": 999,\n    \"tanggal_pinjam\": \"2026-11-25\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Unprocessable Content",
+                            "code": 422,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"message\":\"Buku tidak ditemukan.\",\"errors\":{\"book_id\":[\"Buku tidak ditemukan.\"]}}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Andi ubah peminjaman Budi (403)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 403 Forbidden', function () {",
+                                    "    pm.response.to.have.status(403);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token_andi}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/loans/{{loan_id}}",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "loans",
+                                "{{loan_id}}"
+                            ]
+                        },
+                        "description": "Sudah login tetapi bukan pemilik data → 403 Forbidden.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"status\": \"Dikembalikan\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Andi ubah peminjaman Budi (403)",
+                            "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token_andi}}"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/loans/{{loan_id}}",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "loans",
+                                        "{{loan_id}}"
+                                    ]
+                                },
+                                "description": "Sudah login tetapi bukan pemilik data → 403 Forbidden.",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"status\": \"Dikembalikan\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Forbidden",
+                            "code": 403,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\n    \"message\": \"Anda tidak memiliki izin untuk mengubah peminjaman ini\"\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Andi hapus peminjaman Budi (403)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 403 Forbidden', function () {",
+                                    "    pm.response.to.have.status(403);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token_andi}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/loans/{{loan_id}}",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "loans",
+                                "{{loan_id}}"
+                            ]
+                        },
+                        "description": "Penghapusan juga diperiksa kepemilikannya."
+                    },
+                    "response": [
+                        {
+                            "name": "Andi hapus peminjaman Budi (403)",
+                            "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token_andi}}"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/loans/{{loan_id}}",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "loans",
+                                        "{{loan_id}}"
+                                    ]
+                                },
+                                "description": "Penghapusan juga diperiksa kepemilikannya."
+                            },
+                            "status": "Forbidden",
+                            "code": 403,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\n    \"message\": \"Anda tidak memiliki izin untuk mengubah peminjaman ini\"\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Budi ubah peminjaman sendiri (200)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 200 OK', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/loans/{{loan_id}}",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "loans",
+                                "{{loan_id}}"
+                            ]
+                        },
+                        "description": "Pemilik boleh mengubah status dan tanggal kembali.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"status\": \"Dikembalikan\",\n    \"tanggal_kembali\": \"2026-12-01\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Budi ubah peminjaman sendiri (200)",
+                            "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/loans/{{loan_id}}",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "loans",
+                                        "{{loan_id}}"
+                                    ]
+                                },
+                                "description": "Pemilik boleh mengubah status dan tanggal kembali.",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"status\": \"Dikembalikan\",\n    \"tanggal_kembali\": \"2026-12-01\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"id\":1,\"book_id\":1,\"user_id\":1,\"tanggal_pinjam\":\"2026-11-25T00:00:00.000000Z\",\"tanggal_kembali\":\"2026-12-01T00:00:00.000000Z\",\"status\":\"Dikembalikan\",\"created_at\":\"2026-11-25T09:39:08.000000Z\",\"updated_at\":\"2026-11-25T09:39:08.000000Z\",\"book\":{\"id\":1,\"judul\":\"Basis Data Lanjutan (Edisi 2)\",\"penulis\":\"Abraham Silberschatz\",\"penerbit\":\"Andi Publisher\",\"tahun_terbit\":2019,\"stok\":9,\"cover_name\":null,\"created_at\":\"2026-11-25T09:39:04.000000Z\",\"updated_at\":\"2026-11-25T09:39:07.000000Z\",\"cover_url\":null}}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Daftar peminjaman milik Budi (200)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 200 OK', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/loans",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "loans"
+                            ]
+                        },
+                        "description": "Hanya menampilkan peminjaman milik pengguna yang login."
+                    },
+                    "response": [
+                        {
+                            "name": "Daftar peminjaman milik Budi (200)",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/loans",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "loans"
+                                    ]
+                                },
+                                "description": "Hanya menampilkan peminjaman milik pengguna yang login."
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "[{\"id\":1,\"book_id\":1,\"user_id\":1,\"tanggal_pinjam\":\"2026-11-25T00:00:00.000000Z\",\"tanggal_kembali\":\"2026-12-01T00:00:00.000000Z\",\"status\":\"Dikembalikan\",\"created_at\":\"2026-11-25T09:39:08.000000Z\",\"updated_at\":\"2026-11-25T09:39:08.000000Z\",\"book\":{\"id\":1,\"judul\":\"Basis Data Lanjutan (Edisi 2)\",\"penulis\":\"Abraham Silberschatz\",\"penerbit\":\"Andi Publisher\",\"tahun_terbit\":2019,\"stok\":9,\"cover_name\":null,\"created_at\":\"2026-11-25T09:39:04.000000Z\",\"updated_at\":\"2026-11-25T09:39:07.000000Z\",\"cover_url\":null}}]"
+                        }
+                    ]
+                },
+                {
+                    "name": "Detail peminjaman (200)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 200 OK', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/loans/{{loan_id}}",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "loans",
+                                "{{loan_id}}"
+                            ]
+                        },
+                        "description": "Detail satu peminjaman beserta data bukunya."
+                    },
+                    "response": [
+                        {
+                            "name": "Detail peminjaman (200)",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/loans/{{loan_id}}",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "loans",
+                                        "{{loan_id}}"
+                                    ]
+                                },
+                                "description": "Detail satu peminjaman beserta data bukunya."
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"id\":1,\"book_id\":1,\"user_id\":1,\"tanggal_pinjam\":\"2026-11-25T00:00:00.000000Z\",\"tanggal_kembali\":\"2026-12-01T00:00:00.000000Z\",\"status\":\"Dikembalikan\",\"created_at\":\"2026-11-25T09:39:08.000000Z\",\"updated_at\":\"2026-11-25T09:39:08.000000Z\",\"book\":{\"id\":1,\"judul\":\"Basis Data Lanjutan (Edisi 2)\",\"penulis\":\"Abraham Silberschatz\",\"penerbit\":\"Andi Publisher\",\"tahun_terbit\":2019,\"stok\":9,\"cover_name\":null,\"created_at\":\"2026-11-25T09:39:04.000000Z\",\"updated_at\":\"2026-11-25T09:39:07.000000Z\",\"cover_url\":null}}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Peminjaman tidak ditemukan (404)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 404 Not Found', function () {",
+                                    "    pm.response.to.have.status(404);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/loans/9999",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "loans",
+                                "9999"
+                            ]
+                        },
+                        "description": "Id peminjaman yang tidak ada menghasilkan 404."
+                    },
+                    "response": [
+                        {
+                            "name": "Peminjaman tidak ditemukan (404)",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/loans/9999",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "loans",
+                                        "9999"
+                                    ]
+                                },
+                                "description": "Id peminjaman yang tidak ada menghasilkan 404."
+                            },
+                            "status": "Not Found",
+                            "code": 404,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\n    \"message\": \"Peminjaman tidak ditemukan\"\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Budi hapus peminjaman sendiri (200)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 200 OK', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/loans/{{loan_id}}",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "loans",
+                                "{{loan_id}}"
+                            ]
+                        },
+                        "description": "Pemilik boleh menghapus catatan peminjamannya."
+                    },
+                    "response": [
+                        {
+                            "name": "Budi hapus peminjaman sendiri (200)",
+                            "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/loans/{{loan_id}}",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "loans",
+                                        "{{loan_id}}"
+                                    ]
+                                },
+                                "description": "Pemilik boleh menghapus catatan peminjamannya."
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"message\":\"Peminjaman berhasil dihapus\"}"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "4. Akhir (Profil & Logout)",
+            "item": [
+                {
+                    "name": "Profil pengguna login (200)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 200 OK', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/auth/me",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "me"
+                            ]
+                        },
+                        "description": "GET /auth/me mengembalikan data pengguna pemilik token."
+                    },
+                    "response": [
+                        {
+                            "name": "Profil pengguna login (200)",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/auth/me",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "auth",
+                                        "me"
+                                    ]
+                                },
+                                "description": "GET /auth/me mengembalikan data pengguna pemilik token."
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"id\":1,\"name\":\"Budi Santoso\",\"email\":\"budi@example.com\"}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Logout (200)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 200 OK', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/auth/logout",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "logout"
+                            ]
+                        },
+                        "description": "Menghapus token yang sedang dipakai."
+                    },
+                    "response": [
+                        {
+                            "name": "Logout (200)",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/auth/logout",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "auth",
+                                        "logout"
+                                    ]
+                                },
+                                "description": "Menghapus token yang sedang dipakai."
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"message\":\"Logout berhasil\"}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Profil setelah logout (401)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 401 Unauthorized', function () {",
+                                    "    pm.response.to.have.status(401);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/auth/me",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "me"
+                            ]
+                        },
+                        "description": "Token yang sudah dihapus tidak berlaku lagi."
+                    },
+                    "response": [
+                        {
+                            "name": "Profil setelah logout (401)",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/auth/me",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "auth",
+                                        "me"
+                                    ]
+                                },
+                                "description": "Token yang sudah dihapus tidak berlaku lagi."
+                            },
+                            "status": "Unauthorized",
+                            "code": 401,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"message\":\"Unauthenticated.\"}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Login ulang Budi (200)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('status 200 OK', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});",
+                                    "if (pm.response.code === 200) {",
+                                    "    const data = pm.response.json();",
+                                    "    pm.collectionVariables.set('token', String(data.access_token));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/auth/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "login"
+                            ]
+                        },
+                        "description": "Login kembali agar {{token}} bisa dipakai untuk pengujian berikutnya.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"budi@example.com\",\n    \"password\": \"praktikum123\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Login ulang Budi (200)",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/auth/login",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "auth",
+                                        "login"
+                                    ]
+                                },
+                                "description": "Login kembali agar {{token}} bisa dipakai untuk pengujian berikutnya.",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"email\": \"budi@example.com\",\n    \"password\": \"praktikum123\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\"message\":\"Login berhasil\",\"token_type\":\"Bearer\",\"access_token\":\"3|b0B7pXrvRZcPwEayVcDqjFPtJ1MAiXodhMnXWMhL5f73228d\",\"user\":{\"id\":1,\"name\":\"Budi Santoso\",\"email\":\"budi@example.com\"}}"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

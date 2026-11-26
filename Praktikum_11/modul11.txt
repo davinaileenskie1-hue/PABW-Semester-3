@@ -1,0 +1,1473 @@
+ 
+ 
+MODUL 11 
+
+
+===PAGE===
+
+ 
+ 
+DAFTAR ISI 
+A. Tujuan Pembelajaran .............................................................................................................. 3 
+B. Alat dan Bahan ........................................................................................................................ 3 
+C. Tugas Pendahuluan ................................................................................................................. 3 
+D. Dasar Teori .............................................................................................................................. 4 
+a. Apa Itu REST API? ............................................................................................................ 4 
+b. Komponen Laravel yang Digunakan .................................................................................. 4 
+c. HTTP Method dan Operasi CRUD ..................................................................................... 4 
+d. Validasi, Autentikasi, dan Token ........................................................................................ 5 
+e. HTTP Status Code .............................................................................................................. 5 
+f. Upload File dan multipart/form-data .................................................................................. 5 
+E. Materi Praktikum .................................................................................................................... 6 
+a. Membuat dan Menjalankan Proyek Laravel ....................................................................... 6 
+b. Menyiapkan dan Menghubungkan Database ...................................................................... 7 
+c. Membuat Model dan Migration Post .................................................................................. 9 
+d. Menyiapkan Route API dan Controller ............................................................................ 11 
+e. Membuat Operasi CRUD Blog Post ................................................................................. 14 
+f. Validasi Data dengan Form Request ................................................................................. 18 
+g. Membuat Fitur Registrasi ................................................................................................. 21 
+h. Membuat Fitur Login dengan Token Sanctum ................................................................. 24 
+i. Melindungi Endpoint dengan Middleware auth:sanctum ................................................. 27 
+j. Menambahkan Fitur Upload File ...................................................................................... 33 
+k. Mengaktifkan CORS untuk ReactJS ................................................................................. 42 
+F. Tugas Praktikum ................................................................................................................... 44 
+G. Format Pengumpulan Tugas ................................................................................................. 45 
+ 
+
+===PAGE===
+
+ 
+ 
+A. Tujuan Pembelajaran 
+Setelah mengikuti praktikum ini, mahasiswa mampu: 
+• Menjelaskan konsep REST API dan alur request–response. 
+• Menyiapkan proyek Laravel dan menghubungkannya dengan database MySQL 
+(XAMPP). 
+• Membuat operasi CRUD (Create, Read, Update, Delete) menggunakan route, controller, 
+dan model. 
+• Memvalidasi data masukan menggunakan Form Request. 
+• Membuat fitur registrasi, login, dan melindungi endpoint menggunakan token Laravel 
+Sanctum. 
+• Menambahkan fitur upload file pada artikel menggunakan format multipart/form-data. 
+• Menguji seluruh endpoint REST API menggunakan Postman. 
+B. Alat dan Bahan 
+No. Alat / Bahan Keterangan 
+1 Komputer/Laptop RAM minimal 8 GB, ruang kosong minimal 5 GB 
+2 XAMPP (PHP 8.3 atau lebih baru) Server lokal Apache dan MySQL 
+3 Composer Pengelola paket (dependency manager) PHP 
+4 Laravel 13 Framework PHP, dipasang melalui Composer 
+5 Visual Studio Code Editor kode program 
+6 Postman Aplikasi untuk menguji REST API 
+(https://www.postman.com/downloads) 
+7 Peramban (browser) dan koneksi internet Untuk mengunduh paket dan membuka phpMyAdmin 
+ 
+C. Tugas Pendahuluan 
+1. Apa yang dimaksud dengan REST API? Jelaskan dengan bahasa Anda sendiri dan berikan 
+satu contoh penggunaannya dalam aplikasi sehari-hari! 
+2. Sebutkan empat HTTP method yang digunakan pada REST API (GET, POST, PATCH, 
+dan DELETE), lalu jelaskan fungsinya masing-masing pada operasi CRUD! 
+3. Jelaskan secara singkat fungsi route, controller, model, dan migration pada Laravel! 
+4. Mengapa data yang dikirim client perlu divalidasi sebelum disimpan ke database? Jelaskan 
+pula arti status code 200, 201, 401, 403, 404, dan 422! 
+5. Apa perbedaan authentication dan authorization? Jelaskan juga fungsi token Laravel 
+Sanctum dan alasan password harus disimpan dalam bentuk hash! 
+
+===PAGE===
+
+ 
+ 
+6. Mengapa file tidak dapat dikirim menggunakan format JSON biasa? Jelaskan fungsi format 
+multipart/form-data dan sebutkan contoh penggunaannya! 
+D. Dasar Teori 
+a. Apa Itu REST API? 
+REST API (Representational State Transfer Application Programming Interface) adalah cara 
+aplikasi saling bertukar data melalui protokol HTTP. Client (misalnya Postman, aplikasi React, 
+atau aplikasi Android) mengirim request ke sebuah alamat (endpoint), lal u server membalas 
+dengan response berformat JSON. Bayangkan REST API seperti pelayan restoran: client memesan 
+(request), pelayan meneruskan ke dapur (server), lalu pelayan membawa kembali makanan 
+(response). 
+ 
+ 
+b. Komponen Laravel yang Digunakan 
+Komponen Fungsi Lokasi Berkas 
+Route Menentukan alamat URL dan method HTTP yang dapat 
+diakses 
+routes/api.php 
+Controller Menerima request, memproses, dan mengirim response app/Http/Controllers 
+Model Mewakili tabel database (Eloquent ORM) app/Models 
+Migration Membuat struktur tabel database melalui kode PHP database/migrations 
+Form Request Menyimpan aturan validasi data masukan app/Http/Requests 
+Middleware Memeriksa request sebelum masuk ke controller, misalnya 
+cek token 
+auth:sanctum 
+ 
+c. HTTP Method dan Operasi CRUD 
+Method Operasi Contoh Endpoint Keterangan 
+GET Read /api/posts Mengambil semua artikel 
+GET Read /api/posts/{id} Mengambil satu artikel 
+
+
+===PAGE===
+
+ 
+ 
+Method Operasi Contoh Endpoint Keterangan 
+POST Create /api/posts Menambah artikel baru 
+PATCH Update /api/posts/{id} Mengubah sebagian data artikel 
+DELETE Delete /api/posts/{id} Menghapus artikel 
+ 
+d. Validasi, Autentikasi, dan Token 
+• Validasi memastikan data yang dikirim client sesuai aturan, misalnya judul tidak boleh kosong. 
+Di Laravel, aturan validasi ditulis pada Form Request. 
+• Autentikasi (authentication) memastikan siapa pengguna yang sedang mengakses, misalnya 
+melalui login. 
+• Otorisasi (authorization) menentukan apa yang boleh dilakukan pengguna, misalnya hanya 
+pemilik artikel yang boleh mengubah artikelnya. 
+• Password hashing menyimpan kata sandi dalam bentuk acak (hash), bukan teks asli, 
+menggunakan Hash::make(). 
+• Token Sanctum adalah "kartu akses" yang diberikan setelah login. Token dikirim pada setiap 
+request melalui header berikut: 
+Authorization: Bearer <token> 
+ 
+e. HTTP Status Code 
+Kode Nama Arti Sederhana 
+200 OK Permintaan berhasil 
+201 Created Data baru berhasil dibuat 
+401 Unauthorized Belum login atau token tidak valid 
+403 Forbidden Sudah login, tetapi tidak punya izin 
+404 Not Found Data tidak ditemukan 
+409 Conflict Data bentrok, misalnya email sudah 
+terdaftar 
+422 Unprocessable Content Data gagal validasi 
+500 Internal Server Error Terjadi error di server 
+ 
+f. Upload File dan multipart/form-data 
+Data teks biasanya dikirim dalam format JSON. Namun, JSON tidak dapat membawa file 
+seperti gambar atau PDF. Untuk mengirim file, client memakai format multipart/form -data, yaitu 
+request yang terdiri dari beberapa bagian: field teks (misalnya title dan cont ent) dan field file. Di 
+Postman, format ini dipilih melalui Body → form-data. 
+
+===PAGE===
+
+ 
+ 
+• Laravel membaca file dengan $request ->file('file') lalu menyimpannya ke folder storage 
+menggunakan method store(). 
+• Validasi file memakai aturan file, max (ukuran maksimal dalam KB), dan mimes (jenis file 
+yang diizinkan). 
+• Method spoofing: PHP hanya membaca file pada request POST. Karena itu, perubahan data 
+yang membawa file dikirim dengan method POST ditambah field _method=PATCH, lalu 
+Laravel memperlakukannya sebagai PATCH. 
+E. Materi Praktikum 
+Kerjakan langkah-langkah berikut secara berurutan. Pastikan XAMPP (PHP 8.3 atau lebih 
+baru) dan Composer sudah terpasang di komputer Anda. 
+a. Membuat dan Menjalankan Proyek Laravel 
+Langkah 1 – Membuat Proyek Laravel 
+• Jalankan perintah berikut di terminal, lalu tunggu hingga selesai: 
+composer create-project laravel/laravel praktikum_laravel_nim 
+cd praktikum_laravel_nim 
+code . 
+ 
+Hasil yang diharapkan: Folder proyek terbuka di Visual Studio Code. 
+ 
+Gambar 11.1 Struktur folder proyek Laravel di Visual Studio Code 
+Folder yang paling sering digunakan pada praktikum ini: 
+
+
+===PAGE===
+
+ 
+ 
+Folder / Berkas Kegunaan 
+app/Http/Controllers Tempat controller 
+app/Models Tempat model 
+app/Http/Requests Tempat aturan validasi (Form Request) 
+database/migrations Tempat struktur tabel 
+routes/api.php Tempat daftar endpoint API 
+.env Pengaturan aplikasi dan koneksi database 
+ 
+Langkah 2 – Menjalankan Server Laravel 
+php artisan serve 
+ 
+• Buka http://localhost:8000 di browser. Biarkan terminal ini tetap berjalan selama praktikum, 
+dan gunakan terminal baru untuk perintah lain. 
+Hasil yang diharapkan: Tampil halaman selamat datang Laravel. 
+ 
+Gambar 11.2 Halaman awal Laravel di http://localhost:8000 
+b. Menyiapkan dan Menghubungkan Database 
+Langkah 3 – Membuat Database di phpMyAdmin 
+• Buka http://localhost/phpmyadmin, pilih menu Databases. 
+• Isi nama database blog_laravel, pilih collation utf8mb4_unicode_ci, lalu klik Create. 
+Hasil yang diharapkan: Database blog_laravel muncul di daftar sebelah kiri. 
+
+
+===PAGE===
+
+ 
+ 
+ 
+Gambar 11.3 Database blog_laravel di phpMyAdmin 
+Langkah 4 – Mengatur Berkas .env 
+• Buka berkas .env. Cari baris DB_CONNECTION=sqlite, lalu ubah bagian database menjadi 
+seperti berikut (hapus juga tanda # di depan baris DB_HOST sampai DB_PASSWORD): 
+DB_CONNECTION=mysql 
+DB_HOST=127.0.0.1 
+DB_PORT=3306 
+DB_DATABASE=blog_laravel 
+DB_USERNAME=root 
+DB_PASSWORD= 
+ 
+ 
+Catatan: Jika MySQL Anda memakai password atau port lain, sesuaikan nilainya. Setelah 
+mengubah .env, hentikan server (Ctrl + C) lalu jalankan lagi php artisan serve. 
+Langkah 5 – Menjalankan Migration Bawaan 
+php artisan migrate 
+ 
+Hasil yang diharapkan: Muncul tulisan DONE dan tabel users, cache, jobs, dan sessions 
+terbentuk di database blog_laravel. 
+
+
+===PAGE===
+
+ 
+ 
+ 
+Gambar 11.4 Hasil php artisan migrate dan tabel bawaan di phpMyAdmin 
+c. Membuat Model dan Migration Post 
+Langkah 6 – Membuat Model dan Migration 
+php artisan make:model Post -m 
+ 
+Perintah ini membuat dua berkas: app/Models/Post.php (model) dan 
+database/migrations/xxxx_create_posts_table.php (migration). 
+ 
+Gambar 11.5 Hasil perintah make:model Post -m 
+Langkah 7 – Menulis Struktur Tabel posts 
+• Buka berkas migration create_posts_table, lalu ubah method up() menjadi: 
+public function up(): void 
+{ 
+    Schema::create('posts', function (Blueprint $table) { 
+        $table->id(); 
+        $table->foreignId('user_id')->nullable() 
+              ->constrained()->cascadeOnDelete(); 
+        $table->string('title', 200); 
+        $table->text('content'); 
+        $table->timestamps(); 
+    }); 
+
+
+===PAGE===
+
+ 
+ 
+} 
+ 
+ 
+• user_id menghubungkan artikel dengan pemiliknya (tabel users). Kolom ini dibuat nullable 
+karena fitur login baru dibuat nanti. 
+Langkah 8 – Mengisi Model Post dan Relasi 
+• Buka app/Models/Post.php, lalu ubah isinya menjadi: 
+<?php 
+ 
+namespace App\Models; 
+ 
+use Illuminate\Database\Eloquent\Model; 
+ 
+class Post extends Model 
+{ 
+    protected $fillable = ['title', 'content']; 
+ 
+    public function user() 
+    { 
+        return $this->belongsTo(User::class); 
+    } 
+} 
+ 
+ 
+• Buka app/Models/User.php, lalu tambahkan method berikut di dalam class User: 
+public function posts() 
+{ 
+    return $this->hasMany(Post::class); 
+} 
+ 
+ 
+Artinya: satu User dapat memiliki banyak Post (hasMany), dan setiap Post dimiliki satu User 
+(belongsTo). $fillable berisi kolom yang boleh diisi dari request. 
+Langkah 9 – Menjalankan Migration 
+php artisan migrate 
+ 
+Hasil yang diharapkan: Tabel posts muncul di phpMyAdmin dengan kolom id, user_id, title, 
+content, created_at, dan updated_at. 
+
+===PAGE===
+
+ 
+ 
+ 
+Gambar 11.6 Struktur tabel posts di phpMyAdmin 
+d. Menyiapkan Route API dan Controller 
+Langkah 10 – Mengaktifkan Route API 
+• Sejak Laravel 11, berkas routes/api.php belum tersedia. Jalankan: 
+php artisan install:api 
+ 
+• Jika ditanya untuk menjalankan migration, pilih yes. Perintah ini membuat routes/api.php dan 
+memasang Laravel Sanctum (dipakai nanti untuk login). 
+
+
+===PAGE===
+
+ 
+ 
+ 
+Gambar 11.7 Hasil perintah php artisan install:api 
+Langkah 11 – Agar Error Selalu Berformat JSON 
+• Buka bootstrap/app.php, lalu ubah bagian withMiddleware dan withExceptions menjadi: 
+->withMiddleware(function (Middleware $middleware): void { 
+    $middleware->redirectGuestsTo(fn () => null); 
+}) 
+->withExceptions(function (Exceptions $exceptions): void { 
+    $exceptions->shouldRenderJsonWhen( 
+        fn ($request, $e) => $request->is('api/*') 
+    ); 
+}) 
+ 
+ 
+Dengan pengaturan ini, error seperti 401, 404, dan 422 pada alamat /api/* selalu dikirim dalam 
+format JSON, bukan halaman HTML. 
+
+
+===PAGE===
+
+ 
+ 
+Langkah 12 – Membuat PostController 
+php artisan make:controller PostController --api 
+ 
+Parameter --api membuat controller berisi lima method kosong: index, store, show, update, dan 
+destroy. 
+ 
+Gambar 11.8 Berkas PostController.php hasil make:controller 
+
+
+===PAGE===
+
+ 
+ 
+e. Membuat Operasi CRUD Blog Post 
+Langkah 13 – Menulis Kode CRUD pada PostController 
+• Buka app/Http/Controllers/PostController.php, lalu ganti seluruh isinya menjadi: 
+<?php 
+ 
+namespace App\Http\Controllers; 
+ 
+use App\Models\Post; 
+use Illuminate\Http\Request; 
+ 
+class PostController extends Controller 
+{ 
+    // GET /api/posts - semua artikel 
+    public function index() 
+    { 
+        return response()->json(Post::latest()->get()); 
+    } 
+ 
+    // POST /api/posts - tambah artikel 
+    public function store(Request $request) 
+    { 
+        $post = Post::create($request->only(['title', 'content'])); 
+        return response()->json($post, 201); 
+    } 
+ 
+    // GET /api/posts/{id} - satu artikel 
+    public function show($id) 
+    { 
+        return response()->json($this->findPost($id)); 
+    } 
+ 
+    // PATCH /api/posts/{id} - ubah artikel 
+    public function update(Request $request, $id) 
+    { 
+        $post = $this->findPost($id); 
+        $post->update($request->only(['title', 'content'])); 
+        return response()->json($post); 
+    } 
+ 
+    // DELETE /api/posts/{id} - hapus artikel 
+    public function destroy($id) 
+    { 
+        $this->findPost($id)->delete(); 
+        return response()->json(['message' => 'Post berhasil dihapus']); 
+    } 
+ 
+    // Mencari artikel, jika tidak ada kirim 404 
+    private function findPost($id) 
+    { 
+        $post = Post::find($id); 
+        if (! $post) { 
+
+===PAGE===
+
+ 
+ 
+            abort(404, 'Post tidak ditemukan'); 
+        } 
+        return $post; 
+    } 
+} 
+ 
+ 
+Langkah 14 – Mendaftarkan Route CRUD 
+• Buka routes/api.php, lalu ganti seluruh isinya menjadi: 
+<?php 
+ 
+use App\Http\Controllers\PostController; 
+use Illuminate\Support\Facades\Route; 
+ 
+Route::get('/posts', [PostController::class, 'index']); 
+Route::post('/posts', [PostController::class, 'store']); 
+Route::get('/posts/{id}', [PostController::class, 'show']); 
+Route::patch('/posts/{id}', [PostController::class, 'update']); 
+Route::delete('/posts/{id}', [PostController::class, 'destroy']); 
+ 
+ 
+• Periksa daftar route dengan perintah: 
+php artisan route:list --path=api 
+ 
+Hasil yang diharapkan: Muncul lima route api/posts. 
+ 
+Gambar 11.9 Hasil php artisan route:list --path=api 
+Langkah 15 – Menguji Tambah Artikel (POST) 
+• Buka Postman, buat request POST ke http://localhost:8000/api/posts. 
+• Tab Headers: tambahkan Accept = application/json. 
+• Tab Body: pilih raw → JSON, lalu isi: 
+{ 
+    "title": "Belajar Laravel REST API", 
+    "content": "Artikel pertama pada aplikasi Blog Post." 
+} 
+ 
+
+
+===PAGE===
+
+ 
+ 
+Hasil yang diharapkan: Status 201 Created dan data artikel beserta id. 
+ 
+Gambar 11.10 Hasil POST /api/posts di Postman 
+Langkah 16 – Menguji Ambil, Ubah, dan Hapus Artikel 
+Method URL Body (raw JSON) Hasil 
+GET http://localhost:8000/api/posts - 200 OK, daftar artikel 
+GET http://localhost:8000/api/posts/1 - 200 OK, artikel id 1 
+PATCH http://localhost:8000/api/posts/1 { "title": "Judul 
+Baru" } 
+200 OK, judul berubah 
+DELETE http://localhost:8000/api/posts/1 - 200 OK, "Post berhasil 
+dihapus" 
+GET http://localhost:8000/api/posts/9999 - 404 Not Found 
+ 
+
+
+===PAGE===
+
+ 
+ 
+ 
+Gambar 11.11 Hasil GET artikel di Postman 
+ 
+Gambar 11.12 Hasil PATCH artikel di Postman 
+
+
+===PAGE===
+
+ 
+ 
+ 
+Gambar 11.13 Hasil DELETE artikel di Postman 
+ 
+Gambar 11.14 Hasil GET artikel yang tidak ada (404 Not Found) 
+f. Validasi Data dengan Form Request 
+Langkah 17 – Membuat Form Request 
+php artisan make:request StorePostRequest 
+php artisan make:request UpdatePostRequest 
+ 
+ 
+Dua berkas baru akan muncul di folder app/Http/Requests. 
+
+
+===PAGE===
+
+ 
+ 
+Langkah 18 – Menulis Aturan Validasi 
+• Buka app/Http/Requests/StorePostRequest.php, lalu ubah method authorize() dan rules() 
+menjadi: 
+public function authorize(): bool 
+{ 
+    return true; 
+} 
+ 
+public function rules(): array 
+{ 
+    return [ 
+        'title'   => ['required', 'string', 'max:200'], 
+        'content' => ['required', 'string'], 
+    ]; 
+} 
+ 
+ 
+• Buka app/Http/Requests/UpdatePostRequest.php, lalu isi dengan aturan yang sama tetapi 
+ditambah sometimes (boleh tidak dikirim saat PATCH): 
+public function authorize(): bool 
+{ 
+    return true; 
+} 
+ 
+public function rules(): array 
+{ 
+    return [ 
+        'title'   => ['sometimes', 'required', 'string', 'max:200'], 
+        'content' => ['sometimes', 'required', 'string'], 
+    ]; 
+} 
+ 
+ 
+Aturan Arti 
+required Wajib diisi, tidak boleh kosong 
+string Harus berupa teks 
+max:200 Maksimal 200 karakter 
+sometimes Hanya divalidasi jika field dikirim 
+ 
+Langkah 19 – Memakai Form Request di Controller 
+• Pada PostController.php, tambahkan import di bawah namespace: 
+use App\Http\Requests\StorePostRequest; 
+use App\Http\Requests\UpdatePostRequest; 
+ 
+ 
+
+===PAGE===
+
+ 
+ 
+• Ubah method store() dan update() menjadi: 
+public function store(StorePostRequest $request) 
+{ 
+    $post = Post::create($request->validated()); 
+    return response()->json($post, 201); 
+} 
+ 
+public function update(UpdatePostRequest $request, $id) 
+{ 
+    $post = $this->findPost($id); 
+    $post->update($request->validated()); 
+    return response()->json($post); 
+} 
+ 
+ 
+$request->validated() hanya mengambil data yang lolos validasi. 
+Langkah 20 – Menguji Validasi 
+• Kirim POST http://localhost:8000/api/posts dengan judul kosong: 
+{ 
+    "title": "", 
+    "content": "Isi artikel." 
+} 
+ 
+ 
+Hasil yang diharapkan: Status 422 Unprocessable Content dengan pesan "The title field is 
+required." Jika data diisi dengan benar, hasilnya 201 Created. 
+ 
+Gambar 11.15 Respons 422 saat validasi gagal 
+
+
+===PAGE===
+
+ 
+ 
+ 
+Gambar 11.16 Respons 201 saat data valid 
+g. Membuat Fitur Registrasi 
+Langkah 21 – Membuat AuthController dan RegisterRequest 
+php artisan make:controller AuthController 
+php artisan make:request RegisterRequest 
+ 
+ 
+Langkah 22 – Menulis Aturan Validasi Registrasi 
+• Buka app/Http/Requests/RegisterRequest.php, lalu ubah menjadi: 
+public function authorize(): bool 
+{ 
+    return true; 
+} 
+ 
+public function rules(): array 
+{ 
+    return [ 
+        'name'     => ['required', 'string', 'max:100'], 
+        'email'    => ['required', 'email'], 
+        'password' => ['required', 'string', 'min:8'], 
+    ]; 
+} 
+ 
+ 
+
+
+===PAGE===
+
+ 
+ 
+Langkah 23 – Menulis Method register() 
+• Buka app/Http/Controllers/AuthController.php, lalu ganti isinya menjadi: 
+<?php 
+ 
+namespace App\Http\Controllers; 
+ 
+use App\Http\Requests\RegisterRequest; 
+use App\Models\User; 
+use Illuminate\Support\Facades\Hash; 
+ 
+class AuthController extends Controller 
+{ 
+    public function register(RegisterRequest $request) 
+    { 
+        $data = $request->validated(); 
+ 
+        // Cek email sudah dipakai atau belum 
+        if (User::where('email', $data['email'])->exists()) { 
+            return response()->json(['message' => 'Email sudah terdaftar'], 409); 
+        } 
+ 
+        $user = User::create([ 
+            'name'     => $data['name'], 
+            'email'    => $data['email'], 
+            'password' => Hash::make($data['password']), // password di-hash 
+        ]); 
+ 
+        return response()->json([ 
+            'message' => 'Registrasi berhasil', 
+            'user'    => $user->only(['id', 'name', 'email']), 
+        ], 201); 
+    } 
+} 
+ 
+ 
+Langkah 24 – Mendaftarkan Route Registrasi 
+• Pada routes/api.php, tambahkan import dan route berikut: 
+use App\Http\Controllers\AuthController; 
+ 
+Route::post('/auth/register', [AuthController::class, 'register']); 
+ 
+ 
+Langkah 25 – Menguji Registrasi 
+• Kirim POST http://localhost:8000/api/auth/register dengan body: 
+{ 
+    "name": "Budi Santoso", 
+    "email": "budi@example.com", 
+
+===PAGE===
+
+ 
+ 
+    "password": "praktikum123" 
+} 
+ 
+ 
+Hasil yang diharapkan: Status 201 Created. Di phpMyAdmin, kolom password pada tabel 
+users berisi teks acak yang diawali $2y$ (hash), bukan praktikum123. 
+ 
+Gambar 11.17 Hasil registrasi (201 Created) di Postman 
+ 
+Gambar 11.18 Password tersimpan dalam bentuk hash di tabel users 
+• Kirim ulang request yang sama. Hasilnya harus 409 Conflict ("Email sudah terdaftar"). 
+
+
+===PAGE===
+
+ 
+ 
+ 
+Gambar 11.19 Respons 409 saat email sudah terdaftar 
+h. Membuat Fitur Login dengan Token Sanctum 
+Langkah 26 – Menambahkan HasApiTokens pada Model User 
+• Buka app/Models/User.php, lalu tambahkan import dan trait HasApiTokens: 
+use Laravel\Sanctum\HasApiTokens; 
+ 
+class User extends Authenticatable 
+{ 
+    use HasApiTokens, HasFactory, Notifiable; 
+    // ... kode lain tetap 
+} 
+ 
+ 
+Trait ini membuat User dapat membuat token dengan $user->createToken(). 
+Langkah 27 – Membuat LoginRequest 
+php artisan make:request LoginRequest 
+ 
+• Isi method authorize() dan rules() pada app/Http/Requests/LoginRequest.php: 
+public function authorize(): bool 
+{ 
+    return true; 
+} 
+ 
+public function rules(): array 
+{ 
+    return [ 
+        'email'    => ['required', 'email'], 
+        'password' => ['required', 'string'], 
+
+
+===PAGE===
+
+ 
+ 
+    ]; 
+} 
+ 
+ 
+Langkah 28 – Menambahkan Method login(), me(), dan logout() 
+• Pada AuthController.php, tambahkan import berikut di bagian atas: 
+use App\Http\Requests\LoginRequest; 
+use Illuminate\Http\Request; 
+ 
+ 
+• Tambahkan tiga method berikut di dalam class AuthController (di bawah method register): 
+public function login(LoginRequest $request) 
+{ 
+    $data = $request->validated(); 
+    $user = User::where('email', $data['email'])->first(); 
+ 
+    // Cek email dan password 
+    if (! $user || ! Hash::check($data['password'], $user->password)) { 
+        return response()->json(['message' => 'Email atau password salah'], 401); 
+    } 
+ 
+    $token = $user->createToken('api-token')->plainTextToken; 
+ 
+    return response()->json([ 
+        'message'      => 'Login berhasil', 
+        'token_type'   => 'Bearer', 
+        'access_token' => $token, 
+        'user'         => $user->only(['id', 'name', 'email']), 
+    ]); 
+} 
+ 
+public function me(Request $request) 
+{ 
+    return response()->json($request->user()->only(['id', 'name', 'email'])); 
+} 
+ 
+public function logout(Request $request) 
+{ 
+    $request->user()->currentAccessToken()->delete(); 
+    return response()->json(['message' => 'Logout berhasil']); 
+} 
+ 
+ 
+Langkah 29 – Mendaftarkan Route Login 
+Route::post('/auth/login', [AuthController::class, 'login']); 
+ 
+
+===PAGE===
+
+ 
+ 
+Langkah 30 – Menguji Login 
+• Kirim POST http://localhost:8000/api/auth/login dengan body: 
+{ 
+    "email": "budi@example.com", 
+    "password": "praktikum123" 
+} 
+ 
+ 
+Hasil yang diharapkan: Status 200 OK dan muncul access_token (contoh: 1|AbCdEf...). Salin 
+token ini karena akan dipakai pada langkah berikutnya. 
+ 
+Gambar 11.20 Hasil login berhasil berisi access_token 
+• Coba login dengan password salah. Hasilnya harus 401 Unauthorized. 
+
+
+===PAGE===
+
+ 
+ 
+ 
+Gambar 11.21 Respons 401 saat password salah 
+i. Melindungi Endpoint dengan Middleware auth:sanctum 
+Pada tahap ini, siapa pun boleh membaca artikel (GET), tetapi hanya pengguna yang login 
+yang boleh menambah artikel, dan hanya pemilik artikel yang boleh mengubah atau 
+menghapusnya. 
+Langkah 31 – Menulis Route Final 
+• Ganti seluruh isi routes/api.php menjadi: 
+<?php 
+ 
+use App\Http\Controllers\AuthController; 
+use App\Http\Controllers\PostController; 
+use Illuminate\Support\Facades\Route; 
+ 
+// Publik (tanpa token) 
+Route::post('/auth/register', [AuthController::class, 'register']); 
+Route::post('/auth/login', [AuthController::class, 'login']); 
+Route::get('/posts', [PostController::class, 'index']); 
+Route::get('/posts/{id}', [PostController::class, 'show']); 
+ 
+// Wajib membawa token 
+Route::middleware('auth:sanctum')->group(function () { 
+    Route::get('/auth/me', [AuthController::class, 'me']); 
+    Route::post('/auth/logout', [AuthController::class, 'logout']); 
+    Route::post('/posts', [PostController::class, 'store']); 
+    Route::patch('/posts/{id}', [PostController::class, 'update']); 
+    Route::delete('/posts/{id}', [PostController::class, 'destroy']); 
+}); 
+ 
+ 
+
+
+===PAGE===
+
+ 
+ 
+Langkah 32 – Menyimpan Pemilik Artikel dan Mengecek Kepemilikan 
+• Pada PostController.php, ubah method store(), update(), dan destroy(), lalu tambahkan 
+method findOwnedPost(): 
+public function store(StorePostRequest $request) 
+{ 
+    // user_id otomatis diisi dengan ID pengguna yang login 
+    $post = $request->user()->posts()->create($request->validated()); 
+    return response()->json($post, 201); 
+} 
+ 
+public function update(UpdatePostRequest $request, $id) 
+{ 
+    $post = $this->findOwnedPost($request, $id); 
+    $post->update($request->validated()); 
+    return response()->json($post); 
+} 
+ 
+public function destroy(Request $request, $id) 
+{ 
+    $this->findOwnedPost($request, $id)->delete(); 
+    return response()->json(['message' => 'Post berhasil dihapus']); 
+} 
+ 
+// Hanya pemilik artikel yang boleh lanjut 
+private function findOwnedPost(Request $request, $id) 
+{ 
+    $post = $this->findPost($id); 
+    if ($post->user_id != $request->user()->id) { 
+        abort(403, 'Anda tidak memiliki izin untuk mengubah post ini'); 
+    } 
+    return $post; 
+} 
+ 
+ 
+Langkah 33 – Menguji Endpoint Terlindungi 
+Uji pengamanan API dengan dua akun: Budi (pemilik artikel) dan Andi (pengguna lain). 
+Token berfungsi seperti kartu akses. 
+Persiapan: Mendapatkan Token Budi dan Andi 
+• Login Budi: POST http://localhost:8000/api/auth/login, tab Body → raw → JSON, isi email 
+dan password Budi (Langkah 30), lalu klik Send. 
+• Salin nilai access_token (tanpa tanda kutip) dan simpan di Notepad sebagai TOKEN BUDI. 
+• Daftar dan login Andi dengan cara yang sama (email andi@example.com, password 
+praktikum123), lalu simpan tokennya sebagai TOKEN ANDI. 
+• Memasang token: tab Authorization → Bearer Token → tempel token. 
+• Header: tambahkan Accept = application/json pada tab Headers. 
+
+===PAGE===
+
+ 
+ 
+Pengujian 1 – Menambah artikel tanpa token 
+Bagian Isi 
+Method POST 
+URL http://localhost:8000/api/posts 
+Authorization No Auth (tanpa token) 
+Body (raw → JSON) { "title": "Artikel Budi", "content": "Isi artikel milik 
+Budi." } 
+Hasil 401 Unauthorized → { "message": "Unauthenticated." } 
+ 
+ 
+Gambar 11.22 Respons 401 saat menambah artikel tanpa token 
+ 
+Pengujian 2 – Menambah artikel dengan token Budi 
+Bagian Isi 
+Method POST 
+URL http://localhost:8000/api/posts 
+Authorization Bearer Token → TOKEN BUDI 
+Body (raw → JSON) { "title": "Artikel Budi", "content": "Isi artikel milik 
+Budi." } 
+Hasil 201 Created. Catat nilai "id" pada respons (misalnya 3), karena dipakai pada 
+pengujian berikutnya. 
+ 
+
+
+===PAGE===
+
+ 
+ 
+ 
+Gambar 11.23 Respons 201 saat menambah artikel dengan token Budi 
+ 
+Pengujian 3 – Andi mencoba mengubah artikel Budi 
+Bagian Isi 
+Method PATCH 
+URL http://localhost:8000/api/posts/3 (ganti 3 dengan id artikel Budi) 
+Authorization Bearer Token → TOKEN ANDI 
+Body (raw → JSON) { "title": "Diubah oleh Andi" } 
+Hasil 403 Forbidden → { "message": "Anda tidak memiliki izin untuk mengubah 
+post ini" } 
+ 
+
+
+===PAGE===
+
+ 
+ 
+ 
+Gambar 11.24 Respons 403 saat Andi mengubah artikel milik Budi 
+ 
+Pengujian 4 – Andi mencoba menghapus artikel Budi 
+Bagian Isi 
+Method DELETE 
+URL http://localhost:8000/api/posts/3 
+Authorization Bearer Token → TOKEN ANDI 
+Body Tidak perlu diisi (pilih none) 
+Hasil 403 Forbidden 
+ 
+Pengujian 5 – Budi mengubah artikelnya sendiri 
+Bagian Isi 
+Method PATCH 
+URL http://localhost:8000/api/posts/3 
+Authorization Bearer Token → TOKEN BUDI 
+Body (raw → JSON) { "title": "Judul Diubah oleh Budi" } 
+Hasil 200 OK, judul artikel berubah 
+ 
+
+
+===PAGE===
+
+ 
+ 
+ 
+Gambar 11.25 Respons 200 saat Budi mengubah artikelnya sendiri 
+ 
+Pengujian 6 – Melihat profil dan logout 
+Bagian Isi 
+Method dan URL GET http://localhost:8000/api/auth/me, lalu POST 
+http://localhost:8000/api/auth/logout 
+Authorization Bearer Token → TOKEN BUDI 
+Body Tidak perlu diisi (pilih none) 
+Hasil GET me: 200 OK berisi data Budi. Logout: 200 OK { "message": "Logout 
+berhasil" }. Jika GET me dikirim lagi dengan token yang sama, hasilnya 
+401 karena token sudah tidak berlaku. 
+ 
+
+
+===PAGE===
+
+ 
+ 
+ 
+Gambar 11.26 Hasil GET /api/auth/me dan POST /api/auth/logout 
+ 
+Ringkasan seluruh pengujian: 
+ 
+No. Pengujian Token (Tab Authorization 
+→ Bearer Token) 
+Hasil 
+1 POST /api/posts Tanpa token 401 Unauthorized 
+2 POST /api/posts Token Budi 201 Created (catat id artikel) 
+3 Registrasi dan login akun 
+kedua (Andi) 
+- 201 dan 200 (salin token Andi) 
+4 PATCH /api/posts/{id artikel 
+Budi} 
+Token Andi 403 Forbidden 
+5 DELETE /api/posts/{id 
+artikel Budi} 
+Token Andi 403 Forbidden 
+6 PATCH /api/posts/{id artikel 
+Budi} 
+Token Budi 200 OK 
+7 GET /api/auth/me lalu POST 
+/api/auth/logout 
+Token Budi 200 OK 
+ 
+ 
+j. Menambahkan Fitur Upload File 
+Pada bagian ini setiap artikel dapat membawa satu file lampiran, misalnya gambar, PDF, 
+atau dokumen Office. File dikirim dengan format multipart/form -data, disimpan di folder 
+storage/app/private/posts, lalu dapat dibuka kembali melalui endpoint khusus. 
+
+
+===PAGE===
+
+ 
+ 
+Langkah 34 – Menambahkan Kolom File pada Tabel posts 
+• Buat migration baru untuk menambah kolom pada tabel posts: 
+php artisan make:migration add_file_to_posts_table --table=posts 
+ 
+• Buka berkas migration add_file_to_posts_table, lalu ubah method up() dan down() menjadi: 
+public function up(): void 
+{ 
+    Schema::table('posts', function (Blueprint $table) { 
+        // lokasi file di storage 
+        $table->string('file_path')->nullable()->after('content'); 
+        // nama asli file 
+        $table->string('file_name')->nullable()->after('file_path'); 
+    }); 
+} 
+ 
+public function down(): void 
+{ 
+    Schema::table('posts', function (Blueprint $table) { 
+        $table->dropColumn(['file_path', 'file_name']); 
+    }); 
+} 
+ 
+• Jalankan migration: 
+php artisan migrate 
+ 
+Hasil yang diharapkan: Tabel posts memiliki dua kolom baru, yaitu file_path (lokasi file di 
+server) dan file_name (nama asli file). Kedua kolom bersifat nullable karena lampiran tidak 
+wajib. 
+ 
+Gambar 11.27 Struktur tabel posts setelah ditambah kolom file 
+Langkah 35 – Memperbarui Model Post 
+• Buka app/Models/Post.php, lalu ubah isinya menjadi: 
+<?php 
+ 
+namespace App\Models; 
+
+
+===PAGE===
+
+ 
+ 
+ 
+use Illuminate\Database\Eloquent\Casts\Attribute; 
+use Illuminate\Database\Eloquent\Model; 
+use Illuminate\Database\Eloquent\Relations\BelongsTo; 
+ 
+class Post extends Model 
+{ 
+    protected $fillable = ['title', 'content', 'file_path', 'file_name']; 
+ 
+    // Lokasi file di server tidak perlu dikirim ke client 
+    protected $hidden = ['file_path']; 
+ 
+    // Atribut tambahan yang ikut dikirim di JSON 
+    protected $appends = ['file_url']; 
+ 
+    public function user(): BelongsTo 
+    { 
+        return $this->belongsTo(User::class); 
+    } 
+ 
+    // URL untuk membuka file, null jika tidak ada file 
+    protected function fileUrl(): Attribute 
+    { 
+        return Attribute::get( 
+            fn (): ?string => $this->file_path 
+                ? url("/api/posts/{$this->id}/file") 
+                : null 
+        ); 
+    } 
+} 
+ 
+• $hidden menyembunyikan kolom file_path agar lokasi file di server tidak terlihat oleh client. 
+• $appends menambahkan field file_url pada setiap respons JSON. Nilainya berisi alamat 
+untuk membuka file, atau null jika artikel tidak memiliki lampiran. 
+Langkah 36 – Menambahkan Aturan Validasi File 
+• Buka app/Http/Requests/StorePostRequest.php, lalu ubah method rules() dan tambahkan 
+method messages() menjadi: 
+public function rules(): array 
+{ 
+    return [ 
+        'title' => ['required', 'string', 'max:200'], 
+        'content' => ['required', 'string'], 
+        // File lampiran opsional, maksimal 5 MB (5120 KB) 
+        'file' => ['nullable', 'file', 'max:5120', 
+            'mimes:jpg,jpeg,png,gif,webp,pdf,doc,docx,xls,xlsx,ppt,pptx,txt,zip'], 
+    ]; 
+} 
+ 
+public function messages(): array 
+
+===PAGE===
+
+ 
+ 
+{ 
+    return [ 
+        'file.max' => 'Ukuran file maksimal 5 MB.', 
+        'file.mimes' => 
+            'Tipe file harus gambar, PDF, dokumen Office, txt, atau zip.', 
+        'file.uploaded' => 'File gagal diunggah, periksa ukuran file.', 
+    ]; 
+} 
+ 
+• Buka app/Http/Requests/UpdatePostRequest.php, lalu ubah method rules() menjadi seperti 
+berikut. Tambahkan juga method messages() yang sama seperti di atas. 
+public function rules(): array 
+{ 
+    return [ 
+        'title' => ['sometimes', 'required', 'string', 'max:200'], 
+        'content' => ['sometimes', 'required', 'string'], 
+        // Kirim file baru untuk mengganti lampiran lama 
+        'file' => ['nullable', 'file', 'max:5120', 
+            'mimes:jpg,jpeg,png,gif,webp,pdf,doc,docx,xls,xlsx,ppt,pptx,txt,zip'], 
+        // Kirim remove_file=1 untuk menghapus lampiran 
+        'remove_file' => ['sometimes', 'boolean'], 
+    ]; 
+} 
+ 
+Aturan Arti 
+nullable Boleh tidak dikirim (lampiran bersifat 
+opsional) 
+file Harus berupa file hasil upload 
+max:5120 Ukuran maksimal 5120 KB (5 MB) 
+mimes:jpg,...,zip Ekstensi file yang diizinkan 
+boolean Nilai harus true/false atau 1/0 
+ 
+Langkah 37 – Menyimpan File di PostController 
+• Pada PostController.php, tambahkan import berikut di bawah namespace: 
+use Illuminate\Http\UploadedFile; 
+use Illuminate\Support\Facades\Storage; 
+use Symfony\Component\HttpFoundation\StreamedResponse; 
+ 
+• Ubah method store(), update(), dan destroy(), lalu tambahkan method file(), storeFile(), dan 
+deleteFile() menjadi: 
+// POST /api/posts - tambah artikel (boleh dengan file) 
+public function store(StorePostRequest $request): JsonResponse 
+{ 
+    $data = $request->safe()->only(['title', 'content']); 
+ 
+    // Jika ada file, simpan ke storage/app/private/posts 
+
+===PAGE===
+
+ 
+ 
+    if ($request->hasFile('file')) { 
+        $data = [...$data, ...$this->storeFile($request->file('file'))]; 
+    } 
+ 
+    $post = $request->user()->posts()->create($data); 
+ 
+    return response()->json($post, 201); 
+} 
+ 
+// PATCH /api/posts/{id} - ubah artikel 
+// Jika mengirim file, gunakan POST + field _method=PATCH 
+public function update(UpdatePostRequest $request, int|string $id): JsonResponse 
+{ 
+    $post = $this->findOwnedPost($request, $id); 
+    $data = $request->safe()->only(['title', 'content']); 
+ 
+    if ($request->hasFile('file')) { 
+        // Ganti file lama dengan file baru 
+        $this->deleteFile($post); 
+        $data = [...$data, ...$this->storeFile($request->file('file'))]; 
+    } elseif ($request->boolean('remove_file')) { 
+        // Hapus lampiran tanpa mengganti 
+        $this->deleteFile($post); 
+        $data = [...$data, 'file_path' => null, 'file_name' => null]; 
+    } 
+ 
+    $post->update($data); 
+ 
+    return response()->json($post); 
+} 
+ 
+// DELETE /api/posts/{id} - hapus artikel beserta file-nya 
+public function destroy(Request $request, int|string $id): JsonResponse 
+{ 
+    $post = $this->findOwnedPost($request, $id); 
+    $this->deleteFile($post); 
+    $post->delete(); 
+ 
+    return response()->json(['message' => 'Post berhasil dihapus']); 
+} 
+ 
+// GET /api/posts/{id}/file - membuka / mengunduh file lampiran 
+public function file(int|string $id): StreamedResponse 
+{ 
+    $post = $this->findPost($id); 
+ 
+    if (! $post->file_path || ! Storage::disk('local')->exists($post->file_path)) { 
+        abort(404, 'File tidak ditemukan'); 
+    } 
+ 
+    // inline = gambar / PDF langsung dibuka di browser 
+    return Storage::disk('local')->response($post->file_path, $post->file_name, [], 
+'inline'); 
+} 
+
+===PAGE===
+
+ 
+ 
+ 
+// Simpan file ke folder posts, kembalikan lokasi dan nama aslinya 
+private function storeFile(UploadedFile $file): array 
+{ 
+    return [ 
+        'file_path' => $file->store('posts', 'local'), 
+        'file_name' => $file->getClientOriginalName(), 
+    ]; 
+} 
+ 
+// Hapus file lampiran lama dari storage (jika ada) 
+private function deleteFile(Post $post): void 
+{ 
+    if ($post->file_path) { 
+        Storage::disk('local')->delete($post->file_path); 
+    } 
+} 
+ 
+• $request->hasFile('file') memeriksa apakah client mengirim file. 
+• $file->store('posts', 'local') menyimpan file dengan nama acak di folder 
+storage/app/private/posts dan mengembalikan lokasinya. 
+• Saat file diganti atau artikel dihapus, file lama ikut dihapus dari storage agar tidak 
+menumpuk. 
+• Method file() mengirim isi file ke client. Pilihan inline membuat gambar dan PDF langsung 
+tampil di browser. 
+Langkah 38 – Mendaftarkan Route File 
+• Buka routes/api.php, lalu tambahkan route berikut di bagian publik, tepat di bawah route 
+GET /posts/{id}: 
+Route::get('/posts/{id}/file', [PostController::class, 'file']); 
+ 
+Route ini dibuat publik agar file dapat dibuka tanpa token, sama seperti melihat artikel. 
+Karena file disimpan di folder private, file hanya dapat diakses melalui route ini. 
+Langkah 39 – Menguji Upload File (POST) 
+• Siapkan sebuah gambar (jpg/png), misalnya 2.jpg. Login sebagai Budi, lalu salin 
+access_token. 
+• Di Postman, buat request POST ke http://localhost:8000/api/posts. Pada tab Authorization 
+pilih Bearer Token lalu isi token Budi, dan pada tab Headers tambahkan Accept = 
+application/json. 
+• Tab Body: pilih form-data (bukan raw), lalu isi seperti tabel berikut. Untuk baris file, ubah 
+tipe Key dari Text menjadi File, lalu pilih file dari komputer. Klik Send. 
+
+===PAGE===
+
+ 
+ 
+Key Value Tipe Keterangan 
+title ini ada gambar Text Judul artikel 
+content gambar dari gambarr Text Isi artikel 
+file 2.jpg File File lampiran (opsional) 
+ 
+Hasil yang diharapkan: Status 201 Created. Respons memuat id, file_name, dan file_url, 
+misalnya http://localhost:8000/api/posts/{id}/file. Kolom file_path tidak ikut tampil karena 
+disembunyikan. Catat id artikel untuk langkah berikutnya. 
+ 
+Gambar 11.28 Hasil upload file pada POST /api/posts di Postman 
+Langkah 40 – Membuka File Lampiran 
+• Buat request GET ke alamat file_url dari Langkah 39, yaitu 
+http://localhost:8000/api/posts/{id}/file. Endpoint ini publik, jadi tab Authorization boleh 
+diisi No Auth. Klik Send. 
+Hasil yang diharapkan: Status 200 OK dan gambar yang diunggah tampil pada bagian Body 
+respons di Postman. Untuk artikel yang tidak memiliki lampiran, alamat ini mengembalikan 404 
+Not Found. 
+
+
+===PAGE===
+
+ 
+ 
+ 
+Gambar 11.29 File lampiran dibuka melalui GET /api/posts/{id}/file di Postman 
+Langkah 41 – Mengganti, Menghapus, dan Memvalidasi File 
+PHP tidak membaca file yang dikirim dengan method PATCH. Karena itu, untuk mengubah 
+artikel yang membawa file, gunakan method POST lalu tambahkan field _method dengan nilai 
+PATCH (method spoofing). Laravel akan memperlakukan request tersebut sebagai PATCH.  
+Gunakan token Budi pada semua pengujian berikut. 
+Method URL Body (form-data) Hasil 
+POST http://localhost:8000/api/posts/{id} _method = PATCH 
+(Text), title, 
+content, file = 
+gambar/PDF baru 
+(File) 
+200 OK, file lama diganti 
+PATCH http://localhost:8000/api/posts/{id} raw JSON: 
+{ "remove_file": 
+true } 
+200 OK, file_url menjadi 
+null 
+POST http://localhost:8000/api/posts title, content, file = 
+Arduino.ino (File) 
+422, tipe file tidak 
+diizinkan 
+POST http://localhost:8000/api/posts title, content, file > 
+5 MB 
+422, ukuran file terlalu 
+besar 
+
+
+===PAGE===
+
+ 
+ 
+Method URL Body (form-data) Hasil 
+DELETE http://localhost:8000/api/posts/{id} - 200 OK, artikel dan file 
+terhapus 
+ 
+• Mengganti file: buat request POST (bukan PATCH) ke http://localhost:8000/api/posts/{id}. 
+Pada tab Body pilih form-data, lalu isi seperti tabel berikut dan klik Send. 
+Key Value Tipe Keterangan 
+_method PATCH Text Method spoofing 
+title gambar ganti Text Judul baru 
+content gambar harus ganti ya Text Isi baru 
+file 1. Struktur umum proposal.png File File pengganti 
+ 
+Hasil yang diharapkan: Status 200 OK. Judul, isi, dan file_name berubah sesuai data baru, 
+sedangkan file gambar lama otomatis dihapus dari storage. Jika request dikirim langsung dengan 
+method PATCH atau PUT, data form-data tidak terbaca sehingga artikel tidak berubah. 
+ 
+Gambar 11.30 Mengganti file menggunakan _method=PATCH di Postman 
+
+
+===PAGE===
+
+ 
+ 
+• Validasi file: buat request POST ke http://localhost:8000/api/posts dengan token Budi dan 
+form-data title = Arduinio, content = nyoba arduino, serta file = Arduino.ino (File), lalu klik 
+Send. Ekstensi .ino tidak termasuk dalam aturan mimes. 
+Hasil yang diharapkan: Status 422 Unprocessable Content dengan pesan "Tipe file harus 
+gambar, PDF, dokumen Office, txt, atau zip." 
+ 
+Gambar 11.31 Respons 422 saat tipe file tidak diizinkan di Postman 
+k. Mengaktifkan CORS untuk ReactJS 
+CORS (Cross -Origin Resource Sharing) diperlukan agar aplikasi React (localhost:5173) 
+diizinkan browser untuk mengakses API Laravel (localhost:8000). 
+Langkah 42 – Mengatur CORS 
+• Tambahkan baris berikut pada .env: 
+FRONTEND_URL=http://localhost:5173 
+ 
+• Jalankan perintah berikut untuk membuat berkas config/cors.php: 
+php artisan config:publish cors 
+ 
+
+
+===PAGE===
+
+ 
+ 
+• Buka config/cors.php, lalu ubah bagian allowed_origins dan allowed_headers menjadi 
+seabgai berikut: 
+<?php 
+ 
+return [ 
+ 
+    'paths' => ['api/*'], 
+ 
+    'allowed_methods' => ['*'], 
+ 
+    'allowed_origins' => [env('FRONTEND_URL', 'http://localhost:5173')], 
+ 
+    // Flutter Web berjalan di port acak (mis. localhost:64521), jadi izinkan semua 
+port lokal/LAN 
+    'allowed_origins_patterns' => [ 
+        '#^http://localhost(:\d+)?$#', 
+        '#^http://127\.0\.0\.1(:\d+)?$#', 
+        '#^http://192\.168\.\d{1,3}\.\d{1,3}(:\d+)?$#', 
+    ], 
+ 
+    'allowed_headers' => ['Content-Type', 'Authorization', 'Accept'], 
+ 
+    'exposed_headers' => [], 
+ 
+    'max_age' => 0, 
+ 
+    'supports_credentials' => false, 
+ 
+]; 
+ 
+• Jalankan php artisan config:clear, lalu jalankan ulang php artisan serve. 
+Langkah 43 – Menguji CORS 
+curl.exe -i -X OPTIONS http://localhost:8000/api/posts -H "Origin: 
+http://localhost:5173" -H "Access-Control-Request-Method: GET" 
+ 
+Hasil yang diharapkan: Respons memuat header Access-Control-Allow-Origin: 
+http://localhost:5173. 
+
+===PAGE===
+
+ 
+ 
+ 
+Gambar 11.32 Hasil pengujian CORS di terminal 
+Langkah 44 – Pemeriksaan Akhir 
+php artisan route:list --path=api 
+ 
+Hasil yang diharapkan: Terdaftar 10 route: register, login, me, logout, 5 route posts, dan 1 
+route file. 
+ 
+Gambar 11.33 Daftar route API akhir 
+F. Tugas Praktikum 
+1. Buatlah REST API SiPustaka (perpustakaan kampus) untuk mengelola data buku dan 
+peminjaman. Caranya sama seperti API Blog Post pada Materi Praktikum. Ketentuannya: 
+• Project: Buat project Laravel sipustaka_api_nim dan database db_sipustaka. (Contoh: 
+Langkah 1–5) 
+• Tabel: Buat tabel books (judul, penulis, penerbit, tahun_terbit, stok) dan loans (book_id, 
+user_id, tanggal_pinjam, tanggal_kembali, status: "Dipinjam"/"Dikembalikan"). Untuk 
+book_id dan user_id, tulis $table->foreignId('book_id')->constrained(); agar 
+terhubung ke tabel lain. (Contoh: Langkah 6–9) 
+• Urutan kerja:  Buat bagian buku dulu (Book dan BookController), lalu peminjaman 
+(Loan dan LoanController). (Contoh: Langkah 6–16) 
+
+
+===PAGE===
+
+ 
+ 
+• Login: Buat register, login, dan logout. Setelah login, pengguna mendapat token (kunci 
+akses). (Contoh: Langkah 21–30) 
+• Buku: Lihat data buku boleh tanpa login; tambah, ubah, dan hapus wajib login. (Contoh: 
+Langkah 10–16 dan 31) 
+• Peminjaman: Wajib login. Pengguna hanya boleh mengubah atau menghapus 
+peminjaman miliknya sendiri; jika bukan miliknya, tampilkan error 403. (Contoh: 
+Langkah 31–33) 
+• Validasi: Tolak data yang kosong atau salah (misalnya stok berisi huruf) dengan error 
+422 menggunakan Form Request. (Contoh: Langkah 17–20) 
+• Upload: Tambahkan kolom cover (sampul buku) pada tabel books. Sampul bersifat 
+opsional dan dikirim dengan format form -data saat menambah atau mengubah buku, 
+maksimal 2 MB (max:2048) dengan format jpg, jpeg, atau png. Simpan file di folder 
+private, sediakan endpoint publik GET /a pi/books/{id}/cover untuk membukanya, serta 
+pastikan sampul lama terhapus saat diganti atau saat buku dihapus. File yang terlalu besar 
+atau formatnya salah harus ditolak dengan error 422. (Contoh: Langkah 34–41) 
+• Pengujian: Uji semua fitur di Postman , termasuk upload sampul buku (berhasil, file 
+terlalu besar, dan format salah) serta membuka sampul melalui GET 
+/api/books/{id}/cover. Sertakan tangkapan layar hasil setiap pengujian. (Contoh: 
+Langkah 33 dan 39–41) 
+2. Terapkan hal yang sama pada project Tugas Akhir Saudara: minimal dua tabel yang saling 
+berelasi, lengkap dengan CRUD, login dengan token, validasi, upload file (misalnya gambar 
+atau dokumen), dan pengujian di Postman. 
+G. Format Pengumpulan Tugas 
+Laporan disusun secara berurutan dengan sistematika berikut. 
+1. Halaman Sampul 
+Judul praktikum, nama, NIM, kelas, mata kuliah, dosen pengampu, program studi, tahun 
+akademik, dan logo kampus. 
+2. Tujuan Praktikum 
+Tujuan praktikum yang ditulis dengan kalimat sendiri. 
+3. Alat dan Bahan 
+Perangkat keras dan perangkat lunak yang dipakai beserta versinya (XAMPP, PHP, 
+Composer, Laravel, Visual Studio Code, Postman). 
+4. Langkah Praktikum 
+Langkah pengerjaan secara berurutan, disertai potongan kode dan penjelasan singkat. 
+
+===PAGE===
+
+ 
+ 
+5. Hasil dan Dokumentasi 
+Screenshot hasil di Postman dan phpMyAdmin (register, login, CRUD, serta error 401, 403, 
+404, dan 422). Setiap gambar diberi nomor dan keterangan. 
+6. Analisis dan Pembahasan 
+Penjelasan cara kerja program, error yang ditemui, dan cara mengatasinya. 
+7. Kesimpulan 
+Ringkasan hasil praktikum dalam beberapa kalimat. 
+8. Lampiran 
+Link repositori GitHub dan file export Collection Postman (.json). Folder vendor dan 
+file .env tidak perlu diunggah. 
+9. Presentasi 
+Demonstrasi API menggunakan Postman di kelas dan menjawab pertanyaan dosen. 
+TERIMA KASIH 

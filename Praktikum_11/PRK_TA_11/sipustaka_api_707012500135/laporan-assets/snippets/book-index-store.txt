@@ -1,0 +1,20 @@
+    // GET /api/books - semua buku (publik)
+    public function index(): JsonResponse
+    {
+        return response()->json(Book::latest()->get());
+    }
+
+    // POST /api/books - tambah buku (wajib login, boleh dengan sampul)
+    public function store(StoreBookRequest $request): JsonResponse
+    {
+        $data = $request->safe()->only(['judul', 'penulis', 'penerbit', 'tahun_terbit', 'stok']);
+
+        // Jika ada sampul, simpan ke storage/app/private/covers
+        if ($request->hasFile('cover')) {
+            $data = [...$data, ...$this->storeCover($request->file('cover'))];
+        }
+
+        $book = Book::create($data);
+
+        return response()->json($book, 201);
+    }

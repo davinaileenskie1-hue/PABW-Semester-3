@@ -1,0 +1,21 @@
+    // PATCH /api/books/{id} - ubah buku (wajib login)
+    // Jika mengirim sampul, gunakan POST + field _method=PATCH
+    public function update(UpdateBookRequest $request, int|string $id): JsonResponse
+    {
+        $book = $this->findBook($id);
+        $data = $request->safe()->only(['judul', 'penulis', 'penerbit', 'tahun_terbit', 'stok']);
+
+        if ($request->hasFile('cover')) {
+            // Ganti sampul lama dengan sampul baru
+            $this->deleteCover($book);
+            $data = [...$data, ...$this->storeCover($request->file('cover'))];
+        } elseif ($request->boolean('remove_cover')) {
+            // Hapus sampul tanpa mengganti
+            $this->deleteCover($book);
+            $data = [...$data, 'cover_path' => null, 'cover_name' => null];
+        }
+
+        $book->update($data);
+
+        return response()->json($book);
+    }
